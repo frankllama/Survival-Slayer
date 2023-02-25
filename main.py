@@ -8,6 +8,7 @@ class Game:
         # General setup
         pygame.init()
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        pygame.display.set_caption('Survival Slayer')
         self.clock = pygame.time.Clock()
 
     def run(self):
