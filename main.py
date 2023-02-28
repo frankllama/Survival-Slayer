@@ -14,13 +14,27 @@ class Game:
         self.clock = pygame.time.Clock()
 
     def run(self):
+        player = Character(500, 500)  # initializing the player character
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
 
+        # check for arrow key presses
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_UP]:
+                player.move_up()
+            elif keys[pygame.K_DOWN]:
+                player.move_down()
+            elif keys[pygame.K_LEFT]:
+                player.move_left()
+            elif keys[pygame.K_RIGHT]:
+                player.move_right()
+
+           # setting up the background and updating the screen
             self.screen.fill('black')
+            player.draw(self.screen)
             pygame.display.update()
             self.clock.tick(FPS)
 
