@@ -1,6 +1,8 @@
 import pygame
 import sys
+from character import *
 from settings import *
+
 
 class Game:
     def __init__(self):
@@ -21,6 +23,7 @@ class Game:
             self.screen.fill('black')
             pygame.display.update()
             self.clock.tick(FPS)
+
 
 if __name__ == '__main__':
     game = Game()
