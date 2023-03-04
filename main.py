@@ -36,17 +36,17 @@ class Game:
                 # check for arrow key presses
                 keys = pygame.key.get_pressed()
                 if keys[pygame.K_UP]:
-                    player.move_up()
+                    player.input_handler(pygame.K_UP)
                 elif keys[pygame.K_DOWN]:
-                    player.move_down()
+                    player.input_handler(pygame.K_DOWN)
                 elif keys[pygame.K_LEFT]:
-                    player.move_left()
+                    player.input_handler(pygame.K_LEFT)
                 elif keys[pygame.K_RIGHT]:
-                    player.move_right()
+                    player.input_handler(pygame.K_RIGHT)
 
                 # setting up the background and updating the screen
                 self.screen.fill('black')
-                player.draw()
+                player.draw(self.screen)
                 pygame.display.update()
                 self.clock.tick(FPS)
 

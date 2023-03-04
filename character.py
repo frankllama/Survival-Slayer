@@ -51,6 +51,6 @@ class Character:
         elif key == pygame.K_DOWN:
             self.move(0, 1)
 
-    def draw(self):
+    def draw(self, surface):
         surface.blit(self.image, self.rect)
         #pygame.draw.rect(self.screen, (255, 0, 0),(self.x, self.y, self.width, self.height))
