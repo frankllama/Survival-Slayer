@@ -1,5 +1,6 @@
 import pygame
 import sys
+import os
 from character import *
 from settings import *
 
@@ -14,6 +15,13 @@ class Game:
         self.clock = pygame.time.Clock()
 
     def run(self):
+        # get the currect working directory to locate the spritesheet
+        cwd = os.getcwd()
+        # set the path to the directory containing the sprite sheet
+        sprite_dir = os.path.join("c:/Users/long9/OneDrive/Desktop/Spring2023/CPSC 254/proj/Survival-Slayer/assets/")
+        # set the path to the sprite sheet file
+        sprite_file = os.path.join(sprite_dir, "character.png")
+        player_spritesheet = pygame.image.load(sprite_file)
         player = Character(500, 500)  # initializing the player character
         while True:
             for event in pygame.event.get():
@@ -34,7 +42,7 @@ class Game:
 
            # setting up the background and updating the screen
             self.screen.fill('black')
-            player.draw(self.screen)
+            # player.draw(self.screen)
             pygame.display.update()
             self.clock.tick(FPS)
 
