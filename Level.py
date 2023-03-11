@@ -7,12 +7,14 @@ class level:
         #get surface    
         self.display_surface = pygame.display.get_surface()
         #sprite group set up 
-        self.visibile_sprites = pygame. sprite.Group()
-        self.obstacles_sprites = pygame. sprite.Group()
+        self.visibile_sprites = pygame.sprite.Group()
+        self.obstacles_sprites = pygame.sprite.Group()
 
         self.createMap()    
     def run(self):
-        pass
+        self.visibile_sprites.draw(self.display_surface)
+        self.visibile_sprites.update()
+        
     
     def createMap(self):
         for row_index, row in enumerate(MAP_1):
