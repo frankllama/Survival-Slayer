@@ -3,7 +3,7 @@ import sys
 import os
 from character import *
 from settings import *
-from level import level
+from Level import level
 
 
 

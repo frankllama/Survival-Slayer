@@ -3,9 +3,12 @@ from settings import *
 
 
 class Character:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
+    def __init__(self, pos, groups):
+        super().__init__(groups)
+        self.image.load('assets/singlePlayerAsset.png').convert_alpha()
+        self.rect = self.image.get_rect(topleft = pos)
+
+        
 
     def move(self, adjusted_x, adjusted_y):
         self.x += adjusted_x
