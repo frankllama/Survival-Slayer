@@ -3,7 +3,7 @@ from settings import *
 
 
 class Character(pygame.sprite.Sprite):
-    def __init__(self, pos, groups):
+    def __init__(self, pos, groups, obstacle_sprites):
         super().__init__(groups)
         #image_not_scaled = pygame.image.load('assets/singlePlayerAsset.png').convert_alpha() # for scaling sprite
         #self.image = pygame.transform.scale(image_not_scaled, (128, 128)) # for scaling sprite
@@ -12,6 +12,8 @@ class Character(pygame.sprite.Sprite):
 
         self.direction = pygame.math.Vector2()
         self.speed = 5
+
+        self.obstacle_sprites = obstacle_sprites
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -36,6 +38,13 @@ class Character(pygame.sprite.Sprite):
             self.direction = self.direction.normalize()
 
         self.rect.center += self.direction * speed
+
+    def collision(self, direction):
+        if direction == 'horizontal':
+            pass
+
+        if direction == 'vertical':
+            pass
          
             
     def update(self):
