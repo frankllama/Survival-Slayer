@@ -30,7 +30,10 @@ class Character(pygame.sprite.Sprite):
             self.direction.x = 0
 
     def move(self, speed):
-        self.rect.center += self.direction *speed
+        if self.direction.magnitude() != 0:
+            self.direction = self.direction.normalize()
+
+        self.rect.center += self.direction * speed
          
             
     def update(self):
