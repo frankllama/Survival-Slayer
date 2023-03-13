@@ -22,7 +22,7 @@ class level:
     def createMap(self):
         for row_index, row in enumerate(MAP_1):
             for col_index, col in enumerate(row):
-                x  = col_index * TILE_SIZE
+                x = col_index * TILE_SIZE
                 y = row_index * TILE_SIZE
                 if col == 'x':
                     Tile((x,y), [self.visibile_sprites, self.obstacles_sprites])
