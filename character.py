@@ -5,8 +5,9 @@ from settings import *
 class Character(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacle_sprites):
         super().__init__(groups)
-        image_not_scaled = pygame.image.load('assets/blue_ninja.png').convert_alpha() # for scaling sprite
-        self.image = pygame.transform.scale(image_not_scaled, (64, 64)) # for scaling sprite
+        # for scaling sprite
+        self.image = pygame.transform.scale(pygame.image.load(
+            'assets/blue_ninja.png').convert_alpha(), (64, 64))
         #self.image = pygame.image.load('assets/singlePlayerAsset.png').convert_alpha()
         self.rect = self.image.get_rect(topleft = pos)
 
