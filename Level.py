@@ -28,7 +28,7 @@ class level:
                     Tile((x,y), [self.visibile_sprites, self.obstacles_sprites])
                 if col == 'p':
                     self.player = Character((x,y), [self.visibile_sprites], self.obstacles_sprites)
-                    self.visibile_sprites.add(self.player)
+                    # self.visibile_sprites.add(self.player)
 
             #print(row_index)
             #print(row)
