@@ -38,16 +38,34 @@ class Character(pygame.sprite.Sprite):
         if self.direction.magnitude() != 0:
             self.direction = self.direction.normalize()
 
-        self.rect.center += self.direction * speed
+        self.rect.x += self.direction.x * speed
+        self.collision('horizontal')
+        self.rect.y += self.direction.y * speed
+        self.collision('vertical')
+        # self.rect.center += self.direction * speed
 
     def collision(self, direction):
         if direction == 'horizontal':
-            pass
+            for sprite in self.obstacle_sprites:
+                if sprite.rect.colliderect(self.rect):
+                    # character is moving to the right to object's left side.
+                    if self.direction.x > 0:
+                        self.rect.right = sprite.rect.left
+                    # character is moving to the left to object's right side.
+                    if self.direction.x < 0:
+                        self.rect.left = sprite.rect.right
 
         if direction == 'vertical':
-            pass
-         
+            for sprite in self.obstacle_sprites:
+                if sprite.rect.colliderect(self.rect):
+                    # character is moving down to object's top side.
+                    if self.direction.y > 0:
+                        self.rect.bottom = sprite.rect.top
+                    # character is moving up to object's bottom side.
+                    if self.direction.y < 0:
+                        self.rect.top = sprite.rect.bottom
             
+
     def update(self):
         self.input()
         self.move(self.speed)
