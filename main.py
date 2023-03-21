@@ -20,10 +20,15 @@ class Game:
 
     def run(self):
         while True:
+            current_time = pygame.time.get_ticks()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+                if current_time > 3000:
+                    # reset() sets all members to their initial values.
+                    self.level.reset(MAP_2)
+                    current_time = 0
 
             # setting up the background and updating the screen
             self.screen.fill('black')
@@ -31,12 +36,6 @@ class Game:
             # player.draw(self.screen)
             pygame.display.update()
             self.clock.tick(FPS)
-
-            current_time = pygame.time.get_ticks()
-            if current_time > 3000:
-                # reset() sets all members to their initial values.
-                self.level.reset(MAP_2)
-                current_time = 0
 
 
 if __name__ == '__main__':
