@@ -46,7 +46,7 @@ class YSortCameraGroup(pygame.sprite.Group):
 
         #creating the floor, need to change according to picture we decide to use:
         # self.floor_surface = pygame.image.load('../graphics/tilemap/ground.png').convert()
-        self.floor_surface = pygame.image.load('assets/plains.png').convert()
+        self.floor_surface = pygame.image.load('assets/potential_background.png').convert()
         self.floor_rect = self.floor_surface.get_rect(topleft = (0,0)) #surf = surface
 
     def custom_draw(self,player):
