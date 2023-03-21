@@ -19,24 +19,23 @@ class Game:
         self.level = level()
 
     def run(self):
-        # get the currect working directory to locate the spritesheet
-        #cwd = os.getcwd()
-        # set the path to the directory containing the sprite sheet
-        ##sprite_file = os.path.join(sprite_dir, "character.png")
-        #player_spritesheet = pygame.image.load(sprite_file)
-        #player = Character(500, 500)  # initializing the player character
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
 
-           # setting up the background and updating the screen
+            # setting up the background and updating the screen
             self.screen.fill('black')
             self.level.run()
             # player.draw(self.screen)
             pygame.display.update()
             self.clock.tick(FPS)
+
+            current_time = pygame.time.get_ticks()
+            if current_time > 3000:
+                self.level.reset(MAP_2)
+                current_time = 0
 
 
 if __name__ == '__main__':
