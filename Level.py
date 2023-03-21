@@ -19,7 +19,7 @@ class level:
     def run(self):
         self.visibile_sprites.draw(self.display_surface)
         self.visibile_sprites.update()
-        debug(self.player.direction)    
+        debug(self.player.direction)
     
     def createMap(self, current_map):
         for row_index, row in enumerate(current_map):

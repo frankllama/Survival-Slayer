@@ -1,6 +1,6 @@
 import pygame
 import sys
-import os
+# import os
 from character import *
 from settings import *
 from Level import level
@@ -34,6 +34,7 @@ class Game:
 
             current_time = pygame.time.get_ticks()
             if current_time > 3000:
+                # reset() sets all members to their initial values.
                 self.level.reset(MAP_2)
                 current_time = 0
 
