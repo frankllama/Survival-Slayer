@@ -20,11 +20,7 @@ class level:
     def run(self):
         self.visibile_sprites.custom_draw(self.player)
         self.visibile_sprites.update()
-<<<<<<< HEAD
         debug(self.player.direction)
-=======
-        #debug(self.player.direction)    got deleted in video, commenting out for now
->>>>>>> main
     
     def createMap(self, current_map):
         for row_index, row in enumerate(current_map):

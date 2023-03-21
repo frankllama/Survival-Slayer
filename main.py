@@ -1,10 +1,6 @@
 import pygame
 import sys
-<<<<<<< HEAD
-# import os
 import random
-=======
->>>>>>> main
 from character import *
 from settings import *
 from Level import level
