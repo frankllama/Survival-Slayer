@@ -1,6 +1,7 @@
 import pygame
 import sys
 # import os
+import random
 from character import *
 from settings import *
 from Level import level
@@ -17,18 +18,23 @@ class Game:
         self.clock = pygame.time.Clock()
 
         self.level = level()
+        
+        self.map_list = [MAP_1, MAP_2]
+        # create an event to randomly change the map on the event queue, timer based.
+        self.time_interval = 5000 # 5,000 milliseconds == 5 seconds
+        self.timer_event = pygame.USEREVENT+1
+        pygame.time.set_timer(self.timer_event, self.time_interval)
 
     def run(self):
         while True:
-            current_time = pygame.time.get_ticks()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                if current_time > 3000:
+                if event.type == self.timer_event:
+                    current_map = random.choice(self.map_list)
                     # reset() sets all members to their initial values.
-                    self.level.reset(MAP_2)
-                    current_time = 0
+                    self.level.reset(current_map)
 
             # setting up the background and updating the screen
             self.screen.fill('black')

@@ -6,7 +6,7 @@ from debug import debug
 
 class level: 
     def __init__(self):
-        self.reset()
+        self.reset() # to set all members to their initial value per map.
     def reset(self, current_map=MAP_1):
         #get surface    
         self.display_surface = pygame.display.get_surface()
