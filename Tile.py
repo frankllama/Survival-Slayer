@@ -8,4 +8,5 @@ class Tile(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(pygame.image.load(
             'assets/rock.png').convert_alpha(), (64, 64))
         #self.image = pygame.image.load('assets/SingleWall.png').convert_alpha()
-        self.rect = self.image.get_rect(topleft = pos)
+        self.rect = self.image.get_rect(topleft = pos) #full size of image
+        self.hitbox = self.rect.inflate(0,-10)
