@@ -8,8 +8,9 @@ class level:
     def __init__(self):
         #get surface    
         self.display_surface = pygame.display.get_surface()
-        #sprite group set up 
-        self.visibile_sprites = pygame.sprite.Group()
+        # sprite group set up 
+        # self.visibile_sprites = pygame.sprite.Group()
+        self.visibile_sprites = YSortCameraGroup()
         self.obstacles_sprites = pygame.sprite.Group()
 
         self.createMap()    
@@ -44,8 +45,9 @@ class YSortCameraGroup(pygame.sprite.Group):
         self.offset = pygame.math.Vector2()
 
         #creating the floor, need to change according to picture we decide to use:
-        #self.floor_surface = pygame.image.load('../graphics/tilemap/ground.png').convert()
-        self.floor_rect = self.floor_surf.get_rect(topleft = (0,0)) #surf = surface
+        # self.floor_surface = pygame.image.load('../graphics/tilemap/ground.png').convert()
+        self.floor_surface = pygame.image.load('assets/plains.png').convert()
+        self.floor_rect = self.floor_surface.get_rect(topleft = (0,0)) #surf = surface
 
     def custom_draw(self,player):
 
@@ -55,7 +57,7 @@ class YSortCameraGroup(pygame.sprite.Group):
 
         #drawing the floor
         floor_offset_pos = self.floor_rect.topleft - self.offset
-        self.display_surface.blit(self.floor_surf,floor_offset_pos)
+        self.display_surface.blit(self.floor_surface,floor_offset_pos)
 
         #for sprite in self.sprites():
         for sprite in sorted(self.sprites(),key = lambda sprite: sprite.rect.centery):
