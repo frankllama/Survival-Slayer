@@ -3,9 +3,12 @@ from settings import *
 from Tile import Tile
 from character import Character
 from debug import debug
+from support import *
+from random import choice
 
 class level: 
     def __init__(self):
+
         #get surface    
         self.display_surface = pygame.display.get_surface()
         # sprite group set up 
@@ -21,16 +24,38 @@ class level:
         #debug(self.player.direction)    got deleted in video, commenting out for now
     
     def createMap(self):
-        for row_index, row in enumerate(MAP_1):
-            for col_index, col in enumerate(row):
-                x = col_index * TILE_SIZE
-                y = row_index * TILE_SIZE
-                if col == 'x':
-                    Tile((x,y), [self.visibile_sprites, self.obstacles_sprites])
-                if col == 'p':
-                    self.player = Character((x,y), [self.visibile_sprites], self.obstacles_sprites)
-                    # self.visibile_sprites.add(self.player)
+        layouts = {
+                'boundary': import_csv_layout('map/map_FloorBlocks.csv'),
+                'grass': import_csv_layout('map/map_Grass.csv'),
+                'object': import_csv_layout('map/map_Objects.csv')
 
+
+        }
+        graphics = {
+                    'grass': import_folder('graphics/grass')
+        }
+        print(graphics)
+
+        for style, layout in layouts.items():
+            for row_index, row in enumerate(layout):
+                for col_index, col in enumerate(row):
+                    if col != '-1':
+                        x = col_index * TILE_SIZE
+                        y = row_index * TILE_SIZE
+                        if style == 'boundary':
+                            Tile((x, y), [ self.obstacles_sprites], 'invisible')
+                        if style == 'grass':
+                            random_grass_image =choice(graphics['grass'])
+                            Tile((x,y), [self.visibile_sprites, self.obstacles_sprites],'grass', random_grass_image)
+                            pass
+                        if style == 'object':
+                            pass
+        #         if col == 'x':
+        #             Tile((x,y), [self.visibile_sprites, self.obstacles_sprites])
+        #         if col == 'p':
+        #             self.player = Character((x,y), [self.visibile_sprites], self.obstacles_sprites)
+        #             # self.visibile_sprites.add(self.player)
+        self.player = Character((2000,1350), [self.visibile_sprites], self.obstacles_sprites)
             #print(row_index)
             #print(row)
 
@@ -46,7 +71,7 @@ class YSortCameraGroup(pygame.sprite.Group):
 
         #creating the floor, need to change according to picture we decide to use:
         # self.floor_surface = pygame.image.load('../graphics/tilemap/ground.png').convert()
-        self.floor_surface = pygame.image.load('assets/potential_background.png').convert()
+        self.floor_surface = pygame.image.load('graphics/tilemap/ground.png').convert()
         self.floor_rect = self.floor_surface.get_rect(topleft = (0,0)) #surf = surface
 
     def custom_draw(self,player):
