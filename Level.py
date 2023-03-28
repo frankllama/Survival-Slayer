@@ -32,7 +32,8 @@ class level:
 
         }
         graphics = {
-                    'grass': import_folder('graphics/grass')
+                    'grass': import_folder('graphics/grass'),
+                    'objects': import_folder('graphics/objects')
         }
         print(graphics)
 
@@ -47,9 +48,10 @@ class level:
                         if style == 'grass':
                             random_grass_image =choice(graphics['grass'])
                             Tile((x,y), [self.visibile_sprites, self.obstacles_sprites],'grass', random_grass_image)
-                            pass
+                            
                         if style == 'object':
-                            pass
+                            surf = graphics['objects'][int(col)] #uses index of the file
+                            Tile((x,y), [self.visibile_sprites, self.obstacles_sprites], 'object', surf)
         #         if col == 'x':
         #             Tile((x,y), [self.visibile_sprites, self.obstacles_sprites])
         #         if col == 'p':
