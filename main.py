@@ -25,6 +25,7 @@ class Game:
         self.timer_event = pygame.USEREVENT+1
         pygame.time.set_timer(self.timer_event, self.time_interval)
 
+
     def run(self):
         while True:
             for event in pygame.event.get():
@@ -34,7 +35,8 @@ class Game:
                 if event.type == self.timer_event:
                     current_map = random.choice(self.map_list)
                     # reset() sets all members to their initial values.
-                    sleep(0.5)
+                    sleep(0.3)
+                    self._fade(WIDTH, HEIGHT)
                     self.level.reset(current_map)
 
             # setting up the background and updating the screen
@@ -43,6 +45,18 @@ class Game:
             
             pygame.display.update()
             self.clock.tick(FPS)
+
+
+    def _fade(self, width, height):
+        fade = pygame.Surface((width, height))
+        fade.fill((0,0,0))
+        for alpha in range(0, 300):
+            fade.set_alpha(alpha)
+            # TODO: redraw_window() for sprites to remain on screen
+            # self.level.run()
+            self.screen.blit(fade, (0,0))
+            pygame.display.update()
+            pygame.time.delay(1)
 
 
 if __name__ == '__main__':
