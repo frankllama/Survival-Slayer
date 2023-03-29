@@ -15,6 +15,7 @@ class Character(pygame.sprite.Sprite):
         
         # graphics setup
         self.import_character_assets()
+        self.status = 'down'
 
         # movement attributes
         self.direction = pygame.math.Vector2()
@@ -43,15 +44,19 @@ class Character(pygame.sprite.Sprite):
         # movement input
         if keys[pygame.K_UP]:
             self.direction.y = -1
+            self.status = 'up'
         elif keys[pygame.K_DOWN]:
             self.direction.y = 1
+            self.status = 'down'
         else:
             self.direction.y = 0
 
         if keys[pygame.K_RIGHT]:
             self.direction.x = 1
+            self.status = 'right'
         elif keys[pygame.K_LEFT]:
             self.direction.x = -1
+            self.status = 'left'
         else:
             self.direction.x = 0
 
@@ -66,6 +71,11 @@ class Character(pygame.sprite.Sprite):
             self.attacking = True
             self.attack_time = pygame.time.get_ticks()
             print('magic')
+
+    def get_status(self):
+        # idle status
+        if self.direction.x == 0 and self.direction.y == 0:
+            self.status = self.status + '_idle'
 
     def move(self, speed):
         if self.direction.magnitude() != 0:
@@ -108,6 +118,7 @@ class Character(pygame.sprite.Sprite):
     def update(self):
         self.input()
         self.cooldowns()
+        #self.get_status()
         self.move(self.speed)
         
     

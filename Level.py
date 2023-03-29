@@ -21,7 +21,7 @@ class level:
     def run(self):
         self.visibile_sprites.custom_draw(self.player)
         self.visibile_sprites.update()
-        #debug(self.player.direction)    got deleted in video, commenting out for now
+        debug(self.player.status)
     
     def createMap(self):
         layouts = {
