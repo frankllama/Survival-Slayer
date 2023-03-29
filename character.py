@@ -1,5 +1,6 @@
 import pygame
 from settings import *
+from support import import_folder
 
 
 class Character(pygame.sprite.Sprite):
@@ -26,13 +27,15 @@ class Character(pygame.sprite.Sprite):
 
     def import_character_assets(self):
         character_path = 'graphics/BlueNinja/'
-        # store all animations in a dictionary. keys for folders and list for sprites in those folders.
+        # store all animations in a dictionary. Keys for folders and list for animation states.
         self.animations = {'up': [], 'down': [], 'left': [], 'right': [],
                            'right_idle': [], 'left_idle': [], 'up_idle': [], 'down_idle': [],
                            'right_attack': [], 'left_attack': [], 'up_attack': [], 'down_attack': []}
 
         for animation in self.animations.keys():
-            print(animation)
+            full_path = character_path + animation
+            self.animations[animation] = import_folder(full_path)
+        print(self.animations)
 
     def input(self):
         keys = pygame.key.get_pressed()
