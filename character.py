@@ -26,6 +26,7 @@ class Character(pygame.sprite.Sprite):
 
         self.obstacle_sprites = obstacle_sprites
 
+
     def import_character_assets(self):
         character_path = 'graphics/BlueNinja/'
         # store all animations in a dictionary. Keys for folders and list for animation states.
@@ -36,7 +37,7 @@ class Character(pygame.sprite.Sprite):
         for animation in self.animations.keys():
             full_path = character_path + animation
             self.animations[animation] = import_folder(full_path)
-        print(self.animations)
+
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -72,10 +73,22 @@ class Character(pygame.sprite.Sprite):
             self.attack_time = pygame.time.get_ticks()
             print('magic')
 
+
     def get_status(self):
         # idle status
         if self.direction.x == 0 and self.direction.y == 0:
-            self.status = self.status + '_idle'
+            if not 'idle' in self.status and not 'attack' in self.status:
+                self.status = self.status + '_idle'
+
+        if self.attacking:
+            self.direction.x = 0
+            self.direction.y = 0
+            if not 'attack' in self.status:
+                if 'idle' in self.status:
+                    self.status = self.status.replace('_idle', '_attack')
+                else:
+                    self.status = self.status + '_attack'
+
 
     def move(self, speed):
         if self.direction.magnitude() != 0:
@@ -86,6 +99,7 @@ class Character(pygame.sprite.Sprite):
         self.hitbox.y += self.direction.y * speed
         self.collision('vertical')
         self.rect.center = self.hitbox.center
+
 
     def collision(self, direction):
         if direction == 'horizontal':
@@ -107,7 +121,8 @@ class Character(pygame.sprite.Sprite):
                     # character is moving up to object's bottom side.
                     if self.direction.y < 0:
                         self.hitbox.top = sprite.hitbox.bottom
-            
+
+
     def cooldowns(self):
         current_time = pygame.time.get_ticks()
 
@@ -115,10 +130,11 @@ class Character(pygame.sprite.Sprite):
             if current_time - self.attack_time >= self.attack_cooldown:
                 self.attacking = False
 
+
     def update(self):
         self.input()
         self.cooldowns()
-        #self.get_status()
+        self.get_status()
         self.move(self.speed)
         
     
