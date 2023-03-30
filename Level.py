@@ -25,17 +25,16 @@ class level:
     
     def createMap(self):
         layouts = {
-                'boundary': import_csv_layout('map/map_FloorBlocks.csv'),
-                'grass': import_csv_layout('map/map_Grass.csv'),
-                'object': import_csv_layout('map/map_Objects.csv')
+                'boundary': import_csv_layout('map/SkullIsleData_FloorBlocks.csv'),
+                'object': import_csv_layout('map/SkullIsleData_Obstacles.csv')
 
 
         }
         graphics = {
-                    'grass': import_folder('graphics/grass'),
                     'objects': import_folder('graphics/objects')
         }
         print(graphics)
+        print(graphics['objects'])
 
         for style, layout in layouts.items():
             for row_index, row in enumerate(layout):
@@ -45,9 +44,6 @@ class level:
                         y = row_index * TILE_SIZE
                         if style == 'boundary':
                             Tile((x, y), [ self.obstacles_sprites], 'invisible')
-                        if style == 'grass':
-                            random_grass_image =choice(graphics['grass'])
-                            Tile((x,y), [self.visibile_sprites, self.obstacles_sprites],'grass', random_grass_image)
                             
                         if style == 'object':
                             surf = graphics['objects'][int(col)] #uses index of the file
@@ -73,7 +69,13 @@ class YSortCameraGroup(pygame.sprite.Group):
 
         #creating the floor, need to change according to picture we decide to use:
         # self.floor_surface = pygame.image.load('../graphics/tilemap/ground.png').convert()
-        self.floor_surface = pygame.image.load('graphics/tilemap/ground.png').convert()
+        self.floor_surface = pygame.image.load('assets/SkullIsle.png').convert()
+        self.map_sruface = pygame.Surface((6000, 5000)).convert()
+
+        self.scaled_map_surface = pygame.transform.scale(self.floor_surface, (2000, 1800))
+
+        #self.floor_surface = pygame.Surface((2000, 1800)).convert()
+
         self.floor_rect = self.floor_surface.get_rect(topleft = (0,0)) #surf = surface
 
     def custom_draw(self,player):
@@ -84,7 +86,7 @@ class YSortCameraGroup(pygame.sprite.Group):
 
         #drawing the floor
         floor_offset_pos = self.floor_rect.topleft - self.offset
-        self.display_surface.blit(self.floor_surface,floor_offset_pos)
+        self.display_surface.blit(self.scaled_map_surface,floor_offset_pos)
 
         #for sprite in self.sprites():
         for sprite in sorted(self.sprites(),key = lambda sprite: sprite.rect.centery):

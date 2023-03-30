@@ -7,7 +7,7 @@ class Character(pygame.sprite.Sprite):
         super().__init__(groups)
         # for scaling sprite
         self.image = pygame.transform.scale(pygame.image.load(
-            'assets/blue_ninja.png').convert_alpha(), (64, 64))
+            'assets/blue_ninja.png').convert_alpha(), (16, 16))
         #self.image = pygame.image.load('assets/singlePlayerAsset.png').convert_alpha()
         self.rect = self.image.get_rect(topleft = pos)
         self.hitbox = self.rect.inflate(0,-26)
