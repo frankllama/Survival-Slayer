@@ -49,11 +49,10 @@ class Game:
 
     def _fade(self, width, height):
         fade = pygame.Surface((width, height))
-        fade.fill((0,0,0))
-        for alpha in range(0, 300):
+        fade.fill((30,30,30))
+        for alpha in range(0, 250):
             fade.set_alpha(alpha)
-            # TODO: redraw_window() for sprites to remain on screen
-            # self.level.run()
+            self.screen.fill((200,200,200))
             self.screen.blit(fade, (0,0))
             pygame.display.update()
             pygame.time.delay(1)
