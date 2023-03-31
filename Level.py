@@ -25,8 +25,8 @@ class level:
     
     def createMap(self):
         layouts = {
-                'boundary': import_csv_layout('map/FirstLevelData_FloorBlocks.csv'),
-                'object': import_csv_layout('map/FirstLevelData_Obstacles.csv')
+                'boundary': import_csv_layout('map/FirstLevel_FloorBlocks.csv'),
+                'object': import_csv_layout('map/FirstLevel_Obstacles.csv')
 
 
         }
