@@ -2,7 +2,7 @@
 WIDTH = 1280
 HEIGHT = 720
 FPS = 60
-TILE_SIZE = 16
+TILE_SIZE = 64
 
 # 20 rows by 20 columns per map. 'x' is borders/map boundaries. 'p' is player spawn.
 MAP_1 = [

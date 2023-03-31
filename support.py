@@ -23,6 +23,6 @@ def import_folder(path):
             surface_list.append(image_surf)
     return surface_list    
 
-# import_folder('graphics/grass')
+# import_folder('graphics/objects')
 # print(import_csv_layout('map/map_FloorBlocks.csv'))
 # import_csv_layout
