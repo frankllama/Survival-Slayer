@@ -27,3 +27,7 @@ MAP_1 = [
 ['x',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
 ['x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x'],
 ]
+
+weapon_data = {
+    'sword': {'cooldown': 100, 'damage': 15, 'graphic': }#tbd graphic image for sword, how to know what size is best?
+}

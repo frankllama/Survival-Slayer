@@ -4,7 +4,7 @@ from support import import_folder
 
 
 class Character(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, obstacle_sprites):
+    def __init__(self, pos, groups, obstacle_sprites, create_attack):
         super().__init__(groups)
         # for scaling sprite
         self.image = pygame.transform.scale(pygame.image.load(
@@ -27,7 +27,12 @@ class Character(pygame.sprite.Sprite):
         self.attack_time = None
 
         self.obstacle_sprites = obstacle_sprites
-
+        
+        # weapon
+        self.create_attack = create_attack
+        self.weapon_index = 0
+        self.weapon = list(weapon_data.keys())[self.weapon_index]
+        print (self.weapon)
 
     def import_character_assets(self):
         character_path = 'graphics/BlueNinja/'
@@ -68,7 +73,7 @@ class Character(pygame.sprite.Sprite):
             if keys[pygame.K_SPACE]:
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
-                print('attack')
+                self.create_attack()
 
             # magic input
             if keys[pygame.K_LCTRL]:
