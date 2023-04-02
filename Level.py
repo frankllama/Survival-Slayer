@@ -7,6 +7,7 @@ from support import *
 from random import choice
 import math
 from weapon import Weapon
+from ui import UI
 
 class level: 
     def __init__(self):
@@ -21,12 +22,14 @@ class level:
         self.current_attack = None
         #sprite setup
         self.createMap()    
-
+        # user interface
+        self.ui = UI()
     def run(self):
         self.visibile_sprites.custom_draw(self.player)
         self.visibile_sprites.update()
         debug(self.player.status)
-    
+        self.ui.display(self.player)
+
     def create_attack(self):
         self.current_attack = Weapon(self.player,[self.visibile_sprites])
     

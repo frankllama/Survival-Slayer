@@ -21,7 +21,6 @@ class Character(pygame.sprite.Sprite):
 
         # movement attributes
         self.direction = pygame.math.Vector2()
-        self.speed = 5
         self.attacking = False
         self.attack_cooldown = 400
         self.attack_time = None
@@ -37,6 +36,14 @@ class Character(pygame.sprite.Sprite):
         self.weapon_switch_time = None
         self.switch_duration_cooldown = 200
 
+        # stats
+        self.stats = {'health': 100, 'energy': 60, 'attack': 10, 'magic': 4, 'speed': 5}
+        self.health = self.stats['health']
+        self.energy = self.stats['energy'] 
+        self.exp = 123
+        self.speed = self.stats['speed']
+
+    
     def import_character_assets(self):
         character_path = 'graphics/BlueNinja/'
         # store all animations in a dictionary. Keys for folders and list for animation states.
