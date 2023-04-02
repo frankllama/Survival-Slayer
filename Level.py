@@ -19,6 +19,7 @@ class level:
         self.obstacles_sprites = pygame.sprite.Group()
         # attack sprites
         self.current_attack = None
+        #sprite setup
         self.createMap()    
 
     def run(self):
@@ -29,7 +30,7 @@ class level:
     def create_attack(self):
         self.current_attack = Weapon(self.player,[self.visibile_sprites])
     
-    def destroy_weapon(self):
+    def destroy_attack(self):
         if self.current_attack:
             self.current_attack.kill()
         self.current_attack = None
@@ -65,7 +66,7 @@ class level:
         #         if col == 'p':
         #             self.player = Character((x,y), [self.visibile_sprites], self.obstacles_sprites)
         #             # self.visibile_sprites.add(self.player)
-        self.player = Character((500,500), [self.visibile_sprites], self.obstacles_sprites, self.create_attack)
+        self.player = Character((500,500), [self.visibile_sprites], self.obstacles_sprites, self.create_attack, self.destroy_attack)
             #print(row_index)
             #print(row)
 
