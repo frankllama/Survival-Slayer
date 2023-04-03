@@ -24,6 +24,9 @@ class level:
         self.createMap()    
         # user interface
         self.ui = UI()
+
+
+
     def run(self):
         self.visibile_sprites.custom_draw(self.player)
         self.visibile_sprites.update()
@@ -37,6 +40,11 @@ class level:
         if self.current_attack:
             self.current_attack.kill()
         self.current_attack = None
+
+    def create_magic(self, style, strength, cost):
+        print(style)
+        print(strength)
+        print(cost)
 
     def createMap(self):
         layouts = {
@@ -69,7 +77,13 @@ class level:
         #         if col == 'p':
         #             self.player = Character((x,y), [self.visibile_sprites], self.obstacles_sprites)
         #             # self.visibile_sprites.add(self.player)
-        self.player = Character((500,500), [self.visibile_sprites], self.obstacles_sprites, self.create_attack, self.destroy_attack)
+        self.player = Character(
+            (500,500),
+            [self.visibile_sprites], 
+            self.obstacles_sprites, 
+            self.create_attack, 
+            self.destroy_attack,
+            self.create_magic)
             #print(row_index)
             #print(row)
 
