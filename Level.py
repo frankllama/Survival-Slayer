@@ -8,6 +8,8 @@ from random import choice
 import math
 from weapon import Weapon
 from ui import UI
+from enemy import Enemy
+
 
 class level: 
     def __init__(self):
@@ -49,8 +51,8 @@ class level:
     def createMap(self):
         layouts = {
                 'boundary': import_csv_layout('map/FirstLevel_FloorBlocks.csv'),
-                'object': import_csv_layout('map/FirstLevel_Obstacles.csv')
-
+                'object': import_csv_layout('map/FirstLevel_Obstacles.csv'), 
+                'entities': import_csv_layout('map/map_Entities.csv')
 
         }
         graphics = {
@@ -77,6 +79,24 @@ class level:
         #         if col == 'p':
         #             self.player = Character((x,y), [self.visibile_sprites], self.obstacles_sprites)
         #             # self.visibile_sprites.add(self.player)
+
+                if style == 'entities': 
+                    if col == '394': #el:4:10
+                        self.player = Character(
+                            (x, y),
+                            [self.visibile_sprites],
+                            self.obstacles_sprites,
+                            self.create_attack,
+                            self.destroy_attack,
+                            self.create_magic)
+                    else:
+                        if col == '390': monster_name = 'bamboo'
+                        elif col == '391': monster_name = 'spirit'
+                        elif col == '392': monster_name = 'raccoon'
+                        else: monster_name = 'squid' #this is "working"/running, but need to figure out which numbers insead of 390-392 IF they don't change later
+
+                        Enemy(monster_name, (x,y), [self.visibile_sprites], self.obstacles_sprites)
+    
         self.player = Character(
             (500,500),
             [self.visibile_sprites], 

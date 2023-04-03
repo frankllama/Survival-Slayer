@@ -2,8 +2,8 @@ import pygame
 from settings import *
 
 class Tile(pygame.sprite.Sprite):
-    def __init__(self, pos, grps, sprite_type, surface = pygame.Surface((TILE_SIZE, TILE_SIZE))):
-        super().__init__(grps)
+    def __init__(self, pos, groups, sprite_type, surface = pygame.Surface((TILE_SIZE, TILE_SIZE))):
+        super().__init__(groups)
         self.sprite_type = sprite_type
 
         # for scaling sprite
