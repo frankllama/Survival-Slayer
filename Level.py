@@ -43,6 +43,7 @@ class level:
         self.visibile_sprites.custom_draw(self.player)
         self.visibile_sprites.update()
         # debug(self.player.direction)
+        self.ui.display(self.player)
     
 
     # def createMap(self, current_map):
