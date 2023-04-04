@@ -32,7 +32,8 @@ class level:
     def run(self):
         self.visibile_sprites.custom_draw(self.player)
         self.visibile_sprites.update()
-        debug(self.player.status)
+        self.visibile_sprites.enemy_update(self.player)
+        # \debug(self.player.status)
         self.ui.display(self.player)
 
     def create_attack(self):
@@ -90,10 +91,14 @@ class level:
                             self.destroy_attack,
                             self.create_magic)
                     else:
-                        if col == '390': monster_name = 'bamboo'
-                        elif col == '391': monster_name = 'spirit'
-                        elif col == '392': monster_name = 'raccoon'
-                        else: monster_name = 'squid' #this is "working"/running, but need to figure out which numbers insead of 390-392 IF they don't change later
+                        if col == '390': 
+                            monster_name = 'OgreSKull'
+                        elif col == '391': 
+                            monster_name = 'CyclopSkull'
+                        elif col == '392': 
+                            monster_name = 'EvilSkull'
+                        else: 
+                            monster_name = 'OxSkull' #this is "working"/running, but need to figure out which numbers insead of 390-392 IF they don't change later
 
                         Enemy(monster_name, (x,y), [self.visibile_sprites], self.obstacles_sprites)
     
@@ -172,3 +177,9 @@ class YSortCameraGroup(pygame.sprite.Group):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image,offset_pos)
 
+    def enemy_update(self, player):
+        enemy_sprites = [sprite for sprite in self.sprites() 
+                         if hasattr(sprite,'sprite_type') and
+                                    sprite.sprite_type == 'enemy']
+        for enemy  in enemy_sprites:
+            enemy.enemy_update(player)
