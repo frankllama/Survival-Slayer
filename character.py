@@ -179,6 +179,11 @@ class Character(Entity):
         self.rect = self.image.get_rect(center = self.hitbox.center)
 
         # flicker if the player has been hit
+        if not self.vulnerable:
+            alpha = self.wave_value()
+            self.image.set_alpha(alpha)
+        else:
+            self.image.set_alpha(255)
 
     def get_full_weapon_damage(self):
         base_damage = self.stats['attack']
