@@ -37,11 +37,20 @@ class Enemy(Entity):
         self.attack_time = None
         self.attack_cooldown = 400
 
+        # invincibility timer, after being attacked by player
+        self.vulnerable = True
+        self.hit_time = None
+        self.invincibility_duration = 300
+
     def checkAttackCooldown(self):
+        current_time = pygame.time.get_ticks()
         if not self.can_attack:
-            current_time =pygame.time.get_ticks()
             if current_time -self.attack_time >= self.attack_cooldown:
                 self.can_attack = True
+
+        if not self.vulnerable:
+            if current_time - self.hit_time >= self.invincibility_duration:
+                self.vulnerable = True
 
         # if self.attack_cooldown >= 0:
         #     self.attack_cooldown -= .1
@@ -114,11 +123,14 @@ class Enemy(Entity):
 
 
     def get_damage(self, player, attack_type):
-        if attack_type == 'weapon':
-            self.health -= player.get_full_weapon_damage()
-        else:
-            # TODO: magic damage
-            pass
+        if self.vulnerable:
+            if attack_type == 'weapon':
+                self.health -= player.get_full_weapon_damage()
+            else:
+                # TODO: magic damage
+                pass
+            self.hit_time = pygame.time.get_ticks()
+            self.vulnerable = False
 
 
     def check_death(self):
