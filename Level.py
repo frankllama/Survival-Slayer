@@ -20,13 +20,17 @@ class level:
         # self.visibile_sprites = pygame.sprite.Group()
         self.visibile_sprites = YSortCameraGroup()
         self.obstacles_sprites = pygame.sprite.Group()
+
         # attack sprites
         self.current_attack = None
+        self.attack_sprites = pygame.sprite.Group()
+        self.attackable_sprites = pygame.sprite.Group()
+
         #sprite setup
         self.createMap()    
+
         # user interface
         self.ui = UI()
-
 
 
     def run(self):
@@ -36,27 +40,33 @@ class level:
         # \debug(self.player.status)
         self.ui.display(self.player)
 
+
     def create_attack(self):
-        self.current_attack = Weapon(self.player,[self.visibile_sprites])
+        self.current_attack = Weapon(self.player,[self.visibile_sprites, self.attack_sprites])
     
+
     def destroy_attack(self):
         if self.current_attack:
             self.current_attack.kill()
         self.current_attack = None
+
 
     def create_magic(self, style, strength, cost):
         print(style)
         print(strength)
         print(cost)
 
+
     def createMap(self):
         layouts = {
                 'boundary': import_csv_layout('map/FirstLevel_FloorBlocks.csv'),
+                'grass': import_csv_layout('map/map_Grass.csv'),
                 'object': import_csv_layout('map/FirstLevel_Obstacles.csv'), 
                 'entities': import_csv_layout('map/map_Entities.csv')
 
         }
         graphics = {
+                    'grass': import_folder('graphics/grass'),
                     'objects': import_folder('graphics/objects')
         }
         # print(graphics)
@@ -70,10 +80,17 @@ class level:
                         y = row_index * TILE_SIZE
                         if style == 'boundary':
                             Tile((x, y), [ self.obstacles_sprites], 'invisible')
-                            
+
+                        if style == 'grass':
+                            random_grass_image = choice(graphics['grass'])
+                            Tile(
+                                (x,y), 
+                                [self.visibile_sprites, self.obstacles_sprites, self.attackable_sprites], 
+                                'grass', 
+                                random_grass_image)
+
                         if style == 'object':
                             surf = graphics['objects'][int(col)] #uses index of the file
-
                             Tile((x,y), [self.visibile_sprites, self.obstacles_sprites], 'object', surf)
         #         if col == 'x':
         #             Tile((x,y), [self.visibile_sprites, self.obstacles_sprites])
@@ -100,7 +117,11 @@ class level:
                         else: 
                             monster_name = 'OxSkull' #this is "working"/running, but need to figure out which numbers insead of 390-392 IF they don't change later
 
-                        Enemy(monster_name, (x,y), [self.visibile_sprites], self.obstacles_sprites)
+                        Enemy(
+                            monster_name, 
+                            (x,y), 
+                            [self.visibile_sprites, self.attackable_sprites], 
+                            self.obstacles_sprites)
     
         self.player = Character(
             (500,500),
@@ -111,6 +132,8 @@ class level:
             self.create_magic)
             #print(row_index)
             #print(row)
+
+
 
 class YSortCameraGroup(pygame.sprite.Group):
     def __init__(self):
@@ -139,6 +162,7 @@ class YSortCameraGroup(pygame.sprite.Group):
         #self.floor_surface = pygame.Surface((2000, 1800)).convert()
 
         self.floor_rect = self.floor_surface.get_rect(topleft = (0,0)) #surf = surface
+
 
     def custom_draw(self,player):
 
@@ -176,6 +200,7 @@ class YSortCameraGroup(pygame.sprite.Group):
         for sprite in sorted(self.sprites(),key = lambda sprite: sprite.rect.centery):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image,offset_pos)
+
 
     def enemy_update(self, player):
         enemy_sprites = [sprite for sprite in self.sprites() 
