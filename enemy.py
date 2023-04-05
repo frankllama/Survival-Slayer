@@ -113,10 +113,24 @@ class Enemy(Entity):
         self.rect = self.image.get_rect(center = self.hitbox.center)
 
 
+    def get_damage(self, player, attack_type):
+        if attack_type == 'weapon':
+            self.health -= player.get_full_weapon_damage()
+        else:
+            # TODO: magic damage
+            pass
+
+
+    def check_death(self):
+        if self.health <= 0:
+            self.kill()
+
+
     def update(self):
         self.move(self.speed)
         self.animate()
         self.checkAttackCooldown()
+        self.check_death()
 
     def enemy_update(self, player):
         self.get_status(player)
