@@ -124,6 +124,7 @@ class Enemy(Entity):
 
     def get_damage(self, player, attack_type):
         if self.vulnerable:
+            self.direction = self.get_player_distance_direction(player)[1]
             if attack_type == 'weapon':
                 self.health -= player.get_full_weapon_damage()
             else:
@@ -138,7 +139,14 @@ class Enemy(Entity):
             self.kill()
 
 
+    def hit_reaction(self):
+        # enemy will be pushed away in the same facing direction as the player.
+        if not self.vulnerable:
+            self.direction *= -self.resistance
+
+
     def update(self):
+        self.hit_reaction()
         self.move(self.speed)
         self.animate()
         self.checkAttackCooldown()
