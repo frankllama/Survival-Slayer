@@ -38,6 +38,7 @@ class level:
         self.visibile_sprites.update()
         self.visibile_sprites.enemy_update(self.player)
         # \debug(self.player.status)
+        self.player_attack_logic()
         self.ui.display(self.player)
 
 
@@ -132,6 +133,15 @@ class level:
             self.create_magic)
             #print(row_index)
             #print(row)
+
+
+    def player_attack_logic(self):
+        if self.attack_sprites:
+            for attack_sprite in self.attack_sprites:
+                collision_sprites = pygame.sprite.spritecollide(attack_sprite, self.attackable_sprites, True)
+                if collision_sprites:
+                    for target_sprite in collision_sprites:
+                        target_sprite.kill()
 
 
 
