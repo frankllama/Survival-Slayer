@@ -32,7 +32,6 @@ class level:
         # user interface
         self.ui = UI()
 
-
     def run(self):
         self.visibile_sprites.custom_draw(self.player)
         self.visibile_sprites.update()
@@ -41,22 +40,18 @@ class level:
         self.player_attack_logic()
         self.ui.display(self.player)
 
-
     def create_attack(self):
         self.current_attack = Weapon(self.player,[self.visibile_sprites, self.attack_sprites])
     
-
     def destroy_attack(self):
         if self.current_attack:
             self.current_attack.kill()
         self.current_attack = None
 
-
     def create_magic(self, style, strength, cost):
         print(style)
         print(strength)
         print(cost)
-
 
     def createMap(self):
         layouts = {
@@ -134,7 +129,6 @@ class level:
             #print(row_index)
             #print(row)
 
-
     def player_attack_logic(self):
         if self.attack_sprites:
             for attack_sprite in self.attack_sprites:
@@ -145,7 +139,6 @@ class level:
                             target_sprite.kill()
                         else:
                             target_sprite.get_damage(self.player, attack_sprite.sprite_type)
-
 
 
 class YSortCameraGroup(pygame.sprite.Group):
@@ -175,7 +168,6 @@ class YSortCameraGroup(pygame.sprite.Group):
         #self.floor_surface = pygame.Surface((2000, 1800)).convert()
 
         self.floor_rect = self.floor_surface.get_rect(topleft = (0,0)) #surf = surface
-
 
     def custom_draw(self,player):
 
@@ -213,7 +205,6 @@ class YSortCameraGroup(pygame.sprite.Group):
         for sprite in sorted(self.sprites(),key = lambda sprite: sprite.rect.centery):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image,offset_pos)
-
 
     def enemy_update(self, player):
         enemy_sprites = [sprite for sprite in self.sprites() 

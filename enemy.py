@@ -3,6 +3,7 @@ from settings import *
 from entity import Entity
 from support import *
 
+
 class Enemy(Entity):
     def __init__(self, monster_name, pos, groups, obstacle_sprites):
         # general setup
@@ -57,7 +58,6 @@ class Enemy(Entity):
         # if self.attack_cooldown <= 0:
         #     self.can_attack = True
         #     self.attack_cooldown  =5
-    
         
     def import_graphics(self, name):
         self.animations = {'idle': [], 'move': [], 'attack': []}
@@ -121,6 +121,11 @@ class Enemy(Entity):
         self.image = animation[int(self.frame_index)]
         self.rect = self.image.get_rect(center = self.hitbox.center)
 
+        if not self.vulnerable:
+            alpha = self.wave_value()
+            self.image.set_alpha(alpha)
+        else:
+            self.image.set_alpha(255)
 
     def get_damage(self, player, attack_type):
         if self.vulnerable:
@@ -133,17 +138,14 @@ class Enemy(Entity):
             self.hit_time = pygame.time.get_ticks()
             self.vulnerable = False
 
-
     def check_death(self):
         if self.health <= 0:
             self.kill()
-
 
     def hit_reaction(self):
         # enemy will be pushed away in the same facing direction as the player.
         if not self.vulnerable:
             self.direction *= -self.resistance
-
 
     def update(self):
         self.hit_reaction()

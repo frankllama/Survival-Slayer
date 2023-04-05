@@ -3,6 +3,7 @@ from settings import *
 from support import import_folder
 from entity import Entity
 
+
 class Character(Entity):
     def __init__(self, pos, groups, obstacle_sprites, create_attack, destroy_attack, create_magic):
         super().__init__(groups)
@@ -42,7 +43,6 @@ class Character(Entity):
         self.magic = list(magic_data.keys())[self.magic_index]
         self.can_switch_magic = True
         self.magic_switch_time = None
-        
 
         # stats
         self.stats = {'health': 100, 'energy': 60, 'attack': 10, 'magic': 4, 'speed': 5}
@@ -51,7 +51,6 @@ class Character(Entity):
         self.exp = 123
         self.speed = self.stats['speed']
 
-    
     def import_character_assets(self):
         character_path = 'graphics/BlueNinja/'
         # store all animations in a dictionary. Keys for folders and list for animation states.
@@ -62,7 +61,6 @@ class Character(Entity):
         for animation in self.animations.keys():
             full_path = character_path + animation
             self.animations[animation] = import_folder(full_path)
-
 
     def input(self):
         if not self.attacking:
@@ -171,12 +169,10 @@ class Character(Entity):
         self.image = animation[int(self.frame_index)]
         self.rect = self.image.get_rect(center = self.hitbox.center)
 
-
     def get_full_weapon_damage(self):
         base_damage = self.stats['attack']
         weapon_damage = weapon_data[self.weapon]['damage']
         return base_damage + weapon_damage
-
 
     def update(self):
         self.input()

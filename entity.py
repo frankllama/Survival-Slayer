@@ -1,4 +1,5 @@
 import pygame
+from math import sin
 
 class Entity(pygame.sprite.Sprite):
     def __init__(self, groups):
@@ -37,3 +38,11 @@ class Entity(pygame.sprite.Sprite):
                     # character is moving up to object's bottom side.
                     if self.direction.y < 0:
                         self.hitbox.top = sprite.hitbox.bottom
+
+    def wave_value(self):
+        # using sin wave to get sprite flicker when hit.
+        value = sin(pygame.time.get_ticks())
+        if value >= 0:
+            return 255
+        else:
+            return 0
