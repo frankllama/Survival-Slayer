@@ -67,5 +67,5 @@ monster_data = {
              'speed': 3, 'resistance': 2, 'attack_radius': 120, 'notice_radius': 400},
     'OgreSkull': {'health': 200, 'exp': 150, 'damage': 40, 'attack_type': 'thunder', 'attack_sound': 'audio/attack/fireball.wav',
              'speed': 2, 'resistance': 1, 'attack_radius': 60, 'notice_radius': 350},
-    'OxSkull': {'health': 70, 'exp': 120, 'damage': 15, 'attack_type': 'leaf_attack', 'attack_sound': 'audio/attack/slash.wav',
+    'OxSkull': {'health': 70, 'exp': 120, 'damage': 15, 'attack_type': 'claw', 'attack_sound': 'audio/attack/slash.wav',
              'speed': 4, 'resistance': 2, 'attack_radius': 50, 'notice_radius': 300}}

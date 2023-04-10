@@ -9,7 +9,7 @@ import math
 from weapon import Weapon
 from ui import UI
 from enemy import Enemy
-
+from particles import AnimationPlayer
 
 class level: 
     def __init__(self):
@@ -32,6 +32,9 @@ class level:
         # user interface
         self.ui = UI()
 
+        # particles
+        self.animation_player = AnimationPlayer()
+
     def run(self):
         self.visibile_sprites.custom_draw(self.player)
         self.visibile_sprites.update()
@@ -52,6 +55,8 @@ class level:
         print(style)
         print(strength)
         print(cost)
+
+    
 
     def createMap(self):
         layouts = {
@@ -77,13 +82,13 @@ class level:
                         if style == 'boundary':
                             Tile((x, y), [ self.obstacles_sprites], 'invisible')
 
-                        if style == 'grass':
-                            random_grass_image = choice(graphics['grass'])
-                            Tile(
-                                (x,y), 
-                                [self.visibile_sprites, self.obstacles_sprites, self.attackable_sprites], 
-                                'grass', 
-                                random_grass_image)
+                        # if style == 'grass':
+                        #     random_grass_image = choice(graphics['grass'])
+                        #     Tile(
+                        #         (x,y), 
+                        #         [self.visibile_sprites, self.obstacles_sprites, self.attackable_sprites], 
+                        #         'grass', 
+                        #         random_grass_image)
 
                         if style == 'object':
                             surf = graphics['objects'][int(col)] #uses index of the file
@@ -118,7 +123,8 @@ class level:
                             (x,y), 
                             [self.visibile_sprites, self.attackable_sprites], 
                             self.obstacles_sprites,
-                            self.damage_player)
+                            self.damage_player,
+                            self.trigger_death_particles)
     
         self.player = Character(
             (500,500),
@@ -146,8 +152,11 @@ class level:
             self.player.health -= amount
             self.player.vulnerable = False
             self.player.hurt_time = pygame.time.get_ticks()
+            self.animation_player.create_particles(attack_type, self.player.rect.center, [self.visibile_sprites])
             # TODO: spawn particles
 
+    def trigger_death_particles(self, pos, particle_type):
+        self.animation_player.create_particles(particle_type, pos, self.visibile_sprites)
 
 class YSortCameraGroup(pygame.sprite.Group):
     def __init__(self):

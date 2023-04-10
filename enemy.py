@@ -5,7 +5,7 @@ from support import *
 
 
 class Enemy(Entity):
-    def __init__(self, monster_name, pos, groups, obstacle_sprites, damage_player):
+    def __init__(self, monster_name, pos, groups, obstacle_sprites, damage_player,trigger_death_particles):
         # general setup
         super().__init__(groups)
         self.sprite_type = 'enemy'
@@ -38,6 +38,7 @@ class Enemy(Entity):
         self.attack_time = None
         self.attack_cooldown = 400
         self.damage_player = damage_player
+        self.trigger_death_particle = trigger_death_particles
 
         # invincibility timer, after being attacked by player
         self.vulnerable = True
