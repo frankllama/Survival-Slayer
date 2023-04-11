@@ -36,11 +36,12 @@ class level:
         # particles
         self.animation_player = AnimationPlayer()
         self.magic_player = MagicPlayer(self.animation_player)
+
     def run(self):
         self.visible_sprites.custom_draw(self.player)
         self.visible_sprites.update()
         self.visible_sprites.enemy_update(self.player)
-        # \debug(self.player.status)
+        # debug(self.player.status)
         self.player_attack_logic()
         self.ui.display(self.player)
 
@@ -149,6 +150,7 @@ class level:
                 if collision_sprites:
                     for target_sprite in collision_sprites:
                         if target_sprite.sprite_type == 'grass':
+                            # TODO: add create_grass_particles method later.
                             target_sprite.kill()
                         else:
                             target_sprite.get_damage(self.player, attack_sprite.sprite_type)

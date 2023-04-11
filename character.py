@@ -195,8 +195,6 @@ class Character(Entity):
         else:
             self.image.set_alpha(255)
 
-    
-
     def get_full_weapon_damage(self):
         base_damage = self.stats['attack']
         weapon_damage = weapon_data[self.weapon]['damage']
@@ -208,6 +206,7 @@ class Character(Entity):
         self.get_status()
         self.animate()
         self.move(self.speed)
+        self.energy_recovery()
 
 
     
