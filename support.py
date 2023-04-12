@@ -2,6 +2,9 @@ from csv import reader
 from os import walk 
 import pygame
 
+#This file is responsible for the functions that imports files that implements the graphics and location 
+# of map assets
+
 def import_csv_layout(path):
     terrain_map = []
     with open(path) as level_map:

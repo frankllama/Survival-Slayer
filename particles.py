@@ -2,6 +2,11 @@ import pygame
 from support import import_folder
 from random import choice
 
+
+#This file contains two classes: AnimationPlayer and ParticleEffects. AnimationPlayer initializes a dictionary 
+# of particle effects for magic, attacks, and monster death, and is also responsible for flipping the 
+# particle frames and creating the particles. 
+#
 class AnimationPlayer:
 	def __init__(self):
 		self.frames = {

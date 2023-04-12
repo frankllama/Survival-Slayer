@@ -4,6 +4,8 @@ HEIGHT = 720
 FPS = 60
 TILE_SIZE = 64
 
+#This file sets up the game's attributes, such as screen resolution, frames per second, and in-game sprites."
+
 # 20 rows by 20 columns per map. 'x' is borders/map boundaries. 'p' is player spawn.
 MAP_1 = [
 ['x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x'],

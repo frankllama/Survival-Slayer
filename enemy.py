@@ -3,7 +3,8 @@ from settings import *
 from entity import Entity
 from support import *
 
-
+#The enemy entity is done implemented here. Stats, sprites, particles and player
+#interaction are its main responsibility 
 class Enemy(Entity):
     def __init__(self, monster_name, pos, groups, obstacle_sprites, damage_player, trigger_death_particles):
         # general setup

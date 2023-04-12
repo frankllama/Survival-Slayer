@@ -2,6 +2,7 @@ import pygame
 from settings import *
 from random import randint
 
+#The magic class implements the spells available to the player
 class MagicPlayer:
 	def __init__(self,animation_player):
 		self.animation_player = animation_player

@@ -3,7 +3,8 @@ from settings import *
 from support import import_folder
 from entity import Entity
 
-
+#the character class initializes the player's attribute, mainly stats. Control
+# implementation is done here for the player as well as the player sprites
 class Character(Entity):
     def __init__(self, pos, groups, obstacle_sprites, create_attack, destroy_attack, create_magic):
         super().__init__(groups)
