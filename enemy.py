@@ -6,7 +6,7 @@ from support import *
 #The enemy entity is done implemented here. Stats, sprites, particles and player
 #interaction are its main responsibility 
 class Enemy(Entity):
-    def __init__(self, monster_name, pos, groups, obstacle_sprites, damage_player, trigger_death_particles):
+    def __init__(self, monster_name, pos, groups, obstacle_sprites, damage_player, trigger_death_particles, add_exp):
         # general setup
         super().__init__(groups)
         self.sprite_type = 'enemy'
@@ -40,6 +40,7 @@ class Enemy(Entity):
         self.attack_cooldown = 400
         self.damage_player = damage_player
         self.trigger_death_particles = trigger_death_particles
+        self.add_exp = add_exp
 
         # invincibility timer, after being attacked by player
         self.vulnerable = True
@@ -145,7 +146,7 @@ class Enemy(Entity):
             self.kill()
             # TODO: add death particles for enemy sprites
             self.trigger_death_particles(self.rect.center, self.monster_name)
-
+            self.add_exp(self.exp)
     def hit_reaction(self):
         # enemy will be pushed away in the same facing direction as the player.
         if not self.vulnerable:
