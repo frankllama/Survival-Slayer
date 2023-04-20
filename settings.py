@@ -3,6 +3,11 @@ WIDTH = 1280
 HEIGHT = 720
 FPS = 60
 TILE_SIZE = 64
+HITBOX_OFFSET = {
+    'player': -26,
+    'object': -40,
+    'grass': -10,
+    'invisible': 0}
 
 #This file sets up the game's attributes, such as screen resolution, frames per second, and in-game sprites."
 

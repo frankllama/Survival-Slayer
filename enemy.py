@@ -33,6 +33,7 @@ class Enemy(Entity):
         self.attack_radius = monster_info['attack_radius']
         self.notice_radius = monster_info['notice_radius']
         self.attack_type = monster_info['attack_type']
+        
 
         #player intereaction
         self.can_attack = True
@@ -41,6 +42,14 @@ class Enemy(Entity):
         self.damage_player = damage_player
         self.trigger_death_particles = trigger_death_particles
         self.add_exp = add_exp
+
+        # sounds
+        self.death_sound = pygame.mixer.Sound('audio/death.wav')
+        self.hit_sound = pygame.mixer.Sound('audio/hit.wav')
+        self.attack_sound = pygame.mixer.Sound(monster_info['attack_sound'])
+        self.death_sound.set_volume(0.6)
+        self.hit_sound.set_volume(0.6)
+        self.attack_sound.set_volume(0.3)
 
         # invincibility timer, after being attacked by player
         self.vulnerable = True
@@ -62,7 +71,7 @@ class Enemy(Entity):
         # if self.attack_cooldown <= 0:
         #     self.can_attack = True
         #     self.attack_cooldown  =5
-        
+
     def import_graphics(self, name):
         self.animations = {'idle': [], 'move': [], 'attack': []}
         main_path = f'graphics/monsters/{name}/'
@@ -107,6 +116,7 @@ class Enemy(Entity):
         if self.status == 'attack':
             self.attack_time = pygame.time.get_ticks()
             self.damage_player(self.attack_damage, self.attack_type)
+            self.attack_sound.play()
         elif self.status == 'move':
             print("move")
             self.direction = self.get_player_distance_direction(player)[1]
@@ -133,6 +143,7 @@ class Enemy(Entity):
 
     def get_damage(self, player, attack_type):
         if self.vulnerable:
+            self.hit_sound.play()
             self.direction = self.get_player_distance_direction(player)[1]
             if attack_type == 'weapon':
                 self.health -= player.get_full_weapon_damage()
@@ -147,6 +158,8 @@ class Enemy(Entity):
             # TODO: add death particles for enemy sprites
             self.trigger_death_particles(self.rect.center, self.monster_name)
             self.add_exp(self.exp)
+            self.death_sound.play()
+
     def hit_reaction(self):
         # enemy will be pushed away in the same facing direction as the player.
         if not self.vulnerable:

@@ -5,6 +5,7 @@ class Tile(pygame.sprite.Sprite):
     def __init__(self, pos, groups, sprite_type, surface = pygame.Surface((TILE_SIZE, TILE_SIZE))):
         super().__init__(groups)
         self.sprite_type = sprite_type
+        y_offset = HITBOX_OFFSET[sprite_type]
 
         # for scaling sprite
         # self.image = pygame.transform.scale(pygame.image.load(
@@ -12,4 +13,4 @@ class Tile(pygame.sprite.Sprite):
         self.image = surface
         #self.image = pygame.image.load('assets/SingleWall.png').convert_alpha()
         self.rect = self.image.get_rect(topleft = pos) #full size of image
-        self.hitbox = self.rect.inflate(0,-10)
+        self.hitbox = self.rect.inflate(0,y_offset)

@@ -13,7 +13,7 @@ class Character(Entity):
             'assets/blue_ninja.png').convert_alpha(), (64, 64))
         #self.image = pygame.image.load('assets/singlePlayerAsset.png').convert_alpha()
         self.rect = self.image.get_rect(topleft = pos)
-        self.hitbox = self.rect.inflate(0,-26)
+        self.hitbox = self.rect.inflate(-6, HITBOX_OFFSET['player'])
         
         # graphics setup
         self.import_character_assets()
@@ -57,6 +57,10 @@ class Character(Entity):
         self.vulnerable = True
         self.hurt_time = None
         self.invulnerability_duration = 500
+
+        # import a sound
+        self.weapon_attack_sound = pygame.mixer.Sound('audio/sword.wav')
+        self.weapon_attack_sound.set_volume(0.4)
 
     def import_character_assets(self):
         character_path = 'graphics/BlueNinja/'
@@ -103,7 +107,7 @@ class Character(Entity):
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
                 self.create_attack()
-
+                self.weapon_attack_sound.play()
             # magic input
             if keys[pygame.K_LCTRL]:
                 self.attacking = True

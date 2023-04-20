@@ -16,6 +16,12 @@ class Game:
         self.clock = pygame.time.Clock()
 
         self.level = level()
+        
+        # sound
+        main_sound = pygame.mixer.Sound('audio/main.ogg')
+        main_sound.set_volume(0.5)
+        main_sound.play(loops = -1)
+
 
     def run(self):
         while True:
@@ -28,7 +34,7 @@ class Game:
                            self.level.toggle_menu()
 
            # setting up the background and updating the screen
-            self.screen.fill('black')
+            self.screen.fill(WATER_COLOR)
             self.level.run()
             # player.draw(self.screen)
             pygame.display.update()
