@@ -45,11 +45,11 @@ class Character(Entity):
         self.magic_switch_time = None
 
         # stats
-        self.stats = {'health': 3, 'energy': 60, 'attack': 10, 'magic': 4, 'speed': 5}
-        self.max_stats = {'health': 300, 'energy': 140, 'attack': 20, 'magic' : 10, 'speed': 10}
+        self.stats = {'health': 3, 'energy': 3, 'attack': 10, 'magic': 4, 'speed': 5}
+        self.max_stats = {'health': 6, 'energy': 6, 'attack': 20, 'magic' : 10, 'speed': 10}
         self.upgrade_cost = {'health': 100, 'energy': 100, 'attack': 100, 'magic' : 100, 'speed': 100}
         self.health = self.stats['health'] 
-        self.energy = self.stats['energy'] * 0.8
+        self.energy = self.stats['energy']
         self.exp = 500
         self.speed = self.stats['speed']
 
@@ -164,10 +164,11 @@ class Character(Entity):
         return base_damage + spell_damage
     
     def energy_recovery(self):
-        if self.energy < self.stats['energy']:
-            self.energy += 0.01 * self.stats['magic']
-        else:
-            self.energy = self.stats['energy']
+        self.energy +=1
+        # if self.energy < self.stats['energy']:
+        #     self.energy += 0.01 * self.stats['magic']
+        # else:
+        #     self.energy = self.stats['energy']
 
     def cooldowns(self):
         current_time = pygame.time.get_ticks()
@@ -219,7 +220,7 @@ class Character(Entity):
         self.get_status()
         self.animate()
         self.move(self.speed)
-        self.energy_recovery()
+        #self.energy_recovery()
 
 
     

@@ -68,6 +68,10 @@ UI_FONT_SIZE = 18
 HEART_GRAPHIC = 'graphics/Heart/Heart.png'
 HEART_WIDTH = 26
 HEART_SPACING = 10
+MANA_GRAPHIC = 'graphics/Mana/ManaPotion.png'
+MANA_WIDTH = 14
+MANA_SPACING = 10
+
 
 # general colors
 WATER_COLOR = '#71ddee'
@@ -95,8 +99,8 @@ weapon_data = {
     'sai': {'cooldown': 80, 'damage': 10, 'graphic': 'graphics/weapons/sai/full.png'}}
 
 magic_data = {
-    'flame': {'strength': 5, 'cost': 20, 'graphic': 'graphics/particles/flame/fire.png'},
-    'heal': {'strength': 20, 'cost': 10, 'graphic': 'graphics/particles/heal/heal.png'}}
+    'flame': {'strength': 5, 'cost': 1, 'graphic': 'graphics/particles/flame/fire.png'},
+    'heal': {'strength': 20, 'cost': 2, 'graphic': 'graphics/particles/heal/heal.png'}}
 
 # enemy
 monster_data = {
