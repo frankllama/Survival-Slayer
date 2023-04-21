@@ -65,6 +65,9 @@ ENERGY_BAR_WIDTH = 140
 ITEM_BOX_SIZE = 80
 UI_FONT = 'graphics/font/joystix.ttf'
 UI_FONT_SIZE = 18
+HEART_GRAPHIC = 'graphics/Heart/Heart.png'
+HEART_WIDTH = 26
+HEART_SPACING = 10
 
 # general colors
 WATER_COLOR = '#71ddee'
@@ -97,11 +100,11 @@ magic_data = {
 
 # enemy
 monster_data = {
-    'CyclopSKull': {'health': 500, 'exp': 300, 'damage': 20, 'attack_type': 'slash', 'attack_sound': 'audio/attack/slash.wav',
+    'CyclopSKull': {'health': 500, 'exp': 300, 'damage': 1, 'attack_type': 'slash', 'attack_sound': 'audio/attack/slash.wav',
              'speed': 1, 'resistance': 3, 'attack_radius': 80, 'notice_radius': 360},
-    'EvilSkull': {'health': 50, 'exp': 100, 'damage': 10, 'attack_type': 'claw', 'attack_sound': 'audio/attack/claw.wav',
+    'EvilSkull': {'health': 50, 'exp': 100, 'damage': 1, 'attack_type': 'claw', 'attack_sound': 'audio/attack/claw.wav',
              'speed': 3, 'resistance': 2, 'attack_radius': 120, 'notice_radius': 400},
-    'OgreSkull': {'health': 200, 'exp': 150, 'damage': 40, 'attack_type': 'thunder', 'attack_sound': 'audio/attack/fireball.wav',
+    'OgreSkull': {'health': 200, 'exp': 150, 'damage': 1, 'attack_type': 'thunder', 'attack_sound': 'audio/attack/fireball.wav',
              'speed': 2, 'resistance': 1, 'attack_radius': 60, 'notice_radius': 350},
-    'OxSkull': {'health': 70, 'exp': 120, 'damage': 15, 'attack_type': 'claw', 'attack_sound': 'audio/attack/slash.wav',
+    'OxSkull': {'health': 70, 'exp': 120, 'damage': 1, 'attack_type': 'claw', 'attack_sound': 'audio/attack/slash.wav',
              'speed': 4, 'resistance': 2, 'attack_radius': 50, 'notice_radius': 300}}

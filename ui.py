@@ -25,6 +25,12 @@ class UI:
             magic = pygame.image.load(magic['graphic']).convert_alpha()
             self.magic_graphics.append(magic)
 
+    def show_heart(self, current):
+        for i in range(int(current)):
+            heart_surf = pygame.image.load(HEART_GRAPHIC).convert_alpha()
+            heart_rect = heart_surf.get_rect(x=self.health_bar_rect.x+i*(HEART_WIDTH+HEART_SPACING), y=self.health_bar_rect.y)
+            self.display_surface.blit(heart_surf, heart_rect)
+
     def show_bar(self, current, max_amount, bg_rect, color):
         # draw background
         pygame.draw.rect(self.display_surface, UI_BG_COLOR, bg_rect)
@@ -69,7 +75,8 @@ class UI:
         self.display_surface.blit(magic_surf, magic_rect)
 
     def display(self, player):
-        self.show_bar(player.health, player.stats['health'], self.health_bar_rect, HEALTH_COLOR)
+        #self.show_bar(player.health, player.stats['health'], self.health_bar_rect, HEALTH_COLOR)
+        self.show_heart(player.health)
         self.show_bar(player.energy, player.stats['energy'], self.energy_bar_rect, ENERGY_COLOR)
 
         self.show_exp(player.exp)
