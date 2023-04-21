@@ -209,7 +209,7 @@ class level:
                             self.add_exp)
 
         self.player = Character(
-            (500,500),
+            (1200,1500),
             [self.visibile_sprites], 
             self.obstacles_sprites, 
             self.create_attack, 
