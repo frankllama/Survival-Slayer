@@ -12,12 +12,32 @@ from enemy import Enemy
 from particles import AnimationPlayer
 from magic import MagicPlayer
 from upgrade import Upgrade
+
+
+
 class level: 
     def __init__(self):
+        self.reset() # to set all members to their initial value per map.
 
+
+    def reset(self, current_map=MAP_1):
         #get surface    
         self.display_surface = pygame.display.get_surface()
         self.game_paused = False
+
+        # Create camera for the current map.
+        if current_map == MAP_1:
+            self.visibile_sprites = YSortCameraGroup()
+        else:
+            self.visibile_sprites = YSortCameraGroup_2()
+        self.obstacles_sprites = pygame.sprite.Group()
+
+        # Create the current map to use.
+        if current_map == MAP_1:
+            self.createMap()    
+        else:
+            self.createMap_2()
+
         # sprite group set up 
         # self.visible_sprites = pygame.sprite.Group()
         self.visible_sprites = YSortCameraGroup()
@@ -94,23 +114,9 @@ class level:
                         y = row_index * TILE_SIZE
                         if style == 'boundary':
                             Tile((x, y), [ self.obstacles_sprites], 'invisible')
-
-                        # if style == 'grass':
-                        #     random_grass_image = choice(graphics['grass'])
-                        #     Tile(
-                        #         (x,y), 
-                        #         [self.visible_sprites, self.obstacles_sprites, self.attackable_sprites], 
-                        #         'grass', 
-                        #         random_grass_image)
-
                         if style == 'object':
                             surf = graphics['objects'][int(col)] #uses index of the file
                             Tile((x,y), [self.visible_sprites, self.obstacles_sprites], 'object', surf)
-        #         if col == 'x':
-        #             Tile((x,y), [self.visible_sprites, self.obstacles_sprites])
-        #         if col == 'p':
-        #             self.player = Character((x,y), [self.visible_sprites], self.obstacles_sprites)
-        #             # self.visible_sprites.add(self.player)
 
                 if style == 'entities': 
                     if col == '394': #el:4:10
@@ -150,8 +156,73 @@ class level:
             #print(row_index)
             #print(row)
 
-    def toggle_menu(self):
 
+    def createMap_2(self):
+        layouts = {
+                'boundary': import_csv_layout('map2/map_FloorBlocks.csv'),
+                'grass': import_csv_layout('map2/map_Grass.csv'),
+                'object': import_csv_layout('map2/map_Objects.csv'), 
+                'entities': import_csv_layout('map2/map_Entities.csv')
+        }
+        graphics = {
+                    'grass': import_folder('graphics2/grass'),
+                    'objects': import_folder('graphics2/objects')
+        }
+        # print(graphics)
+        # print(graphics['objects'])
+
+        for style, layout in layouts.items():
+            for row_index, row in enumerate(layout):
+                for col_index, col in enumerate(row):
+                    if col != '-1':
+                        x = col_index * TILE_SIZE
+                        y = row_index * TILE_SIZE
+                        if style == 'boundary':
+                            Tile((x, y), [ self.obstacles_sprites], 'invisible')
+                        if style == 'object':
+                            surf = graphics['objects'][int(col)] #uses index of the file
+                            Tile((x,y), [self.visible_sprites, self.obstacles_sprites], 'object', surf)
+
+                if style == 'entities': 
+                    if col == '394': #el:4:10
+                        self.player = Character(
+                            (x, y),
+                            [self.visible_sprites],
+                            self.obstacles_sprites,
+                            self.create_attack,
+                            self.destroy_attack,
+                            self.create_magic)
+                    else:
+                        if col == '390': 
+                            monster_name = 'OgreSKull'
+                        elif col == '391': 
+                            monster_name = 'CyclopSkull'
+                        elif col == '392': 
+                            monster_name = 'EvilSkull'
+                        else: 
+                            monster_name = 'OxSkull' #this is "working"/running, but need to figure out which numbers insead of 390-392 IF they don't change later
+
+                        Enemy(
+                            monster_name, 
+                            (x,y), 
+                            [self.visible_sprites, self.attackable_sprites], 
+                            self.obstacles_sprites,
+                            self.damage_player,
+                            self.trigger_death_particles,
+                            self.add_exp)
+
+        self.player = Character(
+            (500,500),
+            [self.visible_sprites], 
+            self.obstacles_sprites, 
+            self.create_attack, 
+            self.destroy_attack,
+            self.create_magic)
+            #print(row_index)
+            #print(row)
+
+
+    def toggle_menu(self):
         self.game_paused = not self.game_paused 
 
 
@@ -167,6 +238,7 @@ class level:
                         else:
                             target_sprite.get_damage(self.player, attack_sprite.sprite_type)
 
+
     def damage_player(self, amount, attack_type):
         if self.player.vulnerable:
             self.player.health -= amount
@@ -175,12 +247,14 @@ class level:
             self.animation_player.create_particles(attack_type, self.player.rect.center, [self.visible_sprites])
             # TODO: spawn particles
 
+
     def trigger_death_particles(self, pos, particle_type):
         self.animation_player.create_particles(particle_type, pos, self.visible_sprites)
 
+
+
 class YSortCameraGroup(pygame.sprite.Group):
     def __init__(self):
-
         # general setup
         super().__init__()
         self.display_surface = pygame.display.get_surface()
@@ -206,20 +280,17 @@ class YSortCameraGroup(pygame.sprite.Group):
 
         self.floor_rect = self.floor_surface.get_rect(topleft = (0,0)) #surf = surface
 
-    def custom_draw(self,player):
 
+    def custom_draw(self,player):
         #getting the offset
         self.offset.x = player.rect.centerx - self.half_width
         self.offset.y = player.rect.centery - self.half_height
-
 
         #------------------------        
          # calculate the distance between the player and the center of the screen
         # dx = abs(self.offset.x - self.half_width)
         # dy = abs(self.offset.y - self.half_height)
         # distance = math.sqrt(dx ** 2 + dy ** 2)
-
-
 
         #  # adjust the scale based on the distance and the zoom speed
         # target_scale = 1.0 + (distance / 500) * self.zoom_speed
@@ -232,7 +303,6 @@ class YSortCameraGroup(pygame.sprite.Group):
         #------------------------
         # scale the floor surface
         #scaled_floor_surface = pygame.transform.scale(self.floor_surface, (int(self.floor_rect.width * self.zoom_level), int(self.floor_rect.height * self.zoom_level)))
-    
 
         #drawing the floor
         floor_offset_pos = self.floor_rect.topleft - self.offset
@@ -242,6 +312,48 @@ class YSortCameraGroup(pygame.sprite.Group):
         for sprite in sorted(self.sprites(),key = lambda sprite: sprite.rect.centery):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image,offset_pos)
+
+
+    def enemy_update(self, player):
+        enemy_sprites = [sprite for sprite in self.sprites() 
+                         if hasattr(sprite,'sprite_type') and
+                                    sprite.sprite_type == 'enemy']
+        for enemy  in enemy_sprites:
+            enemy.enemy_update(player)
+
+
+
+class YSortCameraGroup_2(pygame.sprite.Group):
+    def __init__(self):
+        # general setup
+        super().__init__()
+        self.display_surface = pygame.display.get_surface()
+        self.half_width = self.display_surface.get_size()[0] // 2
+        self.half_height = self.display_surface.get_size()[1] // 2
+        self.offset = pygame.math.Vector2()
+
+        #creating the floor, need to change according to picture we decide to use:
+        self.floor_surface = pygame.image.load('graphics2/tilemap/ground.png').convert()
+        # self.map_surface = pygame.Surface((6000, 5000)).convert()
+        # self.scaled_map_surface = pygame.transform.scale(self.floor_surface, (2000, 1800))
+        #self.floor_surface = pygame.Surface((2000, 1800)).convert()
+        self.floor_rect = self.floor_surface.get_rect(topleft = (0,0)) #surf = surface
+
+
+    def custom_draw(self,player):
+        #getting the offset
+        self.offset.x = player.rect.centerx - self.half_width
+        self.offset.y = player.rect.centery - self.half_height
+
+        #drawing the floor
+        floor_offset_pos = self.floor_rect.topleft - self.offset
+        self.display_surface.blit(self.floor_surface,floor_offset_pos)
+
+        #for sprite in self.sprites():
+        for sprite in sorted(self.sprites(),key = lambda sprite: sprite.rect.centery):
+            offset_pos = sprite.rect.topleft - self.offset
+            self.display_surface.blit(sprite.image,offset_pos)
+
 
     def enemy_update(self, player):
         enemy_sprites = [sprite for sprite in self.sprites() 
