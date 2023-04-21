@@ -25,22 +25,14 @@ class level:
         self.display_surface = pygame.display.get_surface()
         self.game_paused = False
 
+        # sprite group set up 
         # Create camera for the current map.
         if current_map == MAP_1:
             self.visibile_sprites = YSortCameraGroup()
         else:
             self.visibile_sprites = YSortCameraGroup_2()
+
         self.obstacles_sprites = pygame.sprite.Group()
-
-        # Create the current map to use.
-        if current_map == MAP_1:
-            self.createMap()    
-        else:
-            self.createMap_2()
-
-        # sprite group set up 
-        # self.visible_sprites = pygame.sprite.Group()
-        self.visible_sprites = YSortCameraGroup()
         self.obstacles_sprites = pygame.sprite.Group()
 
         # attack sprites
@@ -49,7 +41,11 @@ class level:
         self.attackable_sprites = pygame.sprite.Group()
 
         #sprite setup
-        self.createMap()    
+        # Create the current map to use.
+        if current_map == MAP_1:
+            self.createMap()    
+        else:
+            self.createMap_2()
 
         # user interface
         self.ui = UI()
@@ -58,20 +54,21 @@ class level:
         self.animation_player = AnimationPlayer()
         self.magic_player = MagicPlayer(self.animation_player)
 
+
     def run(self):
-        self.visible_sprites.custom_draw(self.player)
+        self.visibile_sprites.custom_draw(self.player)
         self.ui.display(self.player)
 
         if self.game_paused:
             self.upgrade.display()        
         else:
-            self.visible_sprites.update()
-            self.visible_sprites.enemy_update(self.player)
+            self.visibile_sprites.update()
+            self.visibile_sprites.enemy_update(self.player)
             # debug(self.player.status)
             self.player_attack_logic()
 
     def create_attack(self):
-        self.current_attack = Weapon(self.player,[self.visible_sprites, self.attack_sprites])
+        self.current_attack = Weapon(self.player,[self.visibile_sprites, self.attack_sprites])
     
     def destroy_attack(self):
         if self.current_attack:
@@ -80,10 +77,10 @@ class level:
 
     def create_magic(self, style, strength, cost):
         if style == 'heal':
-            self.magic_player.heal(self.player,strength,cost,[self.visible_sprites])
+            self.magic_player.heal(self.player,strength,cost,[self.visibile_sprites])
 
         if style == 'flame':
-            self.magic_player.flame(self.player,cost,[self.visible_sprites,self.attack_sprites])
+            self.magic_player.flame(self.player,cost,[self.visibile_sprites,self.attack_sprites])
         print(style)
         print(strength)
         print(cost)
@@ -116,13 +113,13 @@ class level:
                             Tile((x, y), [ self.obstacles_sprites], 'invisible')
                         if style == 'object':
                             surf = graphics['objects'][int(col)] #uses index of the file
-                            Tile((x,y), [self.visible_sprites, self.obstacles_sprites], 'object', surf)
+                            Tile((x,y), [self.visibile_sprites, self.obstacles_sprites], 'object', surf)
 
                 if style == 'entities': 
                     if col == '394': #el:4:10
                         self.player = Character(
                             (x, y),
-                            [self.visible_sprites],
+                            [self.visibile_sprites],
                             self.obstacles_sprites,
                             self.create_attack,
                             self.destroy_attack,
@@ -140,7 +137,7 @@ class level:
                         Enemy(
                             monster_name, 
                             (x,y), 
-                            [self.visible_sprites, self.attackable_sprites], 
+                            [self.visibile_sprites, self.attackable_sprites], 
                             self.obstacles_sprites,
                             self.damage_player,
                             self.trigger_death_particles,
@@ -148,7 +145,7 @@ class level:
 
         self.player = Character(
             (500,500),
-            [self.visible_sprites], 
+            [self.visibile_sprites], 
             self.obstacles_sprites, 
             self.create_attack, 
             self.destroy_attack,
@@ -181,13 +178,13 @@ class level:
                             Tile((x, y), [ self.obstacles_sprites], 'invisible')
                         if style == 'object':
                             surf = graphics['objects'][int(col)] #uses index of the file
-                            Tile((x,y), [self.visible_sprites, self.obstacles_sprites], 'object', surf)
+                            Tile((x,y), [self.visibile_sprites, self.obstacles_sprites], 'object', surf)
 
                 if style == 'entities': 
                     if col == '394': #el:4:10
                         self.player = Character(
                             (x, y),
-                            [self.visible_sprites],
+                            [self.visibile_sprites],
                             self.obstacles_sprites,
                             self.create_attack,
                             self.destroy_attack,
@@ -205,7 +202,7 @@ class level:
                         Enemy(
                             monster_name, 
                             (x,y), 
-                            [self.visible_sprites, self.attackable_sprites], 
+                            [self.visibile_sprites, self.attackable_sprites], 
                             self.obstacles_sprites,
                             self.damage_player,
                             self.trigger_death_particles,
@@ -213,7 +210,7 @@ class level:
 
         self.player = Character(
             (500,500),
-            [self.visible_sprites], 
+            [self.visibile_sprites], 
             self.obstacles_sprites, 
             self.create_attack, 
             self.destroy_attack,
@@ -244,12 +241,12 @@ class level:
             self.player.health -= amount
             self.player.vulnerable = False
             self.player.hurt_time = pygame.time.get_ticks()
-            self.animation_player.create_particles(attack_type, self.player.rect.center, [self.visible_sprites])
+            self.animation_player.create_particles(attack_type, self.player.rect.center, [self.visibile_sprites])
             # TODO: spawn particles
 
 
     def trigger_death_particles(self, pos, particle_type):
-        self.animation_player.create_particles(particle_type, pos, self.visible_sprites)
+        self.animation_player.create_particles(particle_type, pos, self.visibile_sprites)
 
 
 
