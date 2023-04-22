@@ -44,7 +44,9 @@ class Game:
                     # reset() sets all members to their initial values.
                     sleep(0.3)
                     self._fade(WIDTH, HEIGHT)
+                    current_score = self.level.player.exp
                     self.level.reset(current_map)
+                    self.level.player.exp = current_score
 
            # setting up the background and updating the screen
             self.screen.fill(WATER_COLOR)
