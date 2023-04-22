@@ -44,11 +44,17 @@ class Game:
                     # reset() sets all members to their initial values.
                     sleep(0.3)
                     self._fade(WIDTH, HEIGHT)
+                    # get current stats before resetting and changing maps.
                     current_score = self.level.player.exp
                     current_health = self.level.player.health
+                    current_energy = self.level.player.energy
+
                     self.level.reset(current_map)
+
+                    # assign current stats to now current map after the reset.
                     self.level.player.exp = current_score
                     self.level.player.health = current_health
+                    self.level.player.energy = current_energy
 
            # setting up the background and updating the screen
             self.screen.fill(WATER_COLOR)
