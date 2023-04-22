@@ -45,8 +45,10 @@ class Game:
                     sleep(0.3)
                     self._fade(WIDTH, HEIGHT)
                     current_score = self.level.player.exp
+                    current_health = self.level.player.health
                     self.level.reset(current_map)
                     self.level.player.exp = current_score
+                    self.level.player.health = current_health
 
            # setting up the background and updating the screen
             self.screen.fill(WATER_COLOR)
