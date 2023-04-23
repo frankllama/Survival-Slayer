@@ -27,7 +27,7 @@ class AnimationPlayer:
 			'raccoon': import_folder('graphics/particles/bone_death'),
 			'spirit': import_folder('graphics/particles/bone_death'),
 			'bamboo': import_folder('graphics/particles/bone_death'),
-	        'OgreSKull': import_folder('graphics/particles/bone_death'),		
+	        'OgreSkull': import_folder('graphics/particles/bone_death'),		
             'CyclopSkull': import_folder('graphics/particles/bone_death'),
             'EvilSkull': import_folder('graphics/particles/bone_death'),
             'OxSkull': import_folder('graphics/particles/bone_death'),

@@ -2,6 +2,7 @@ import pygame
 from settings import *
 from entity import Entity
 from support import *
+import random
 
 #The enemy entity is done implemented here. Stats, sprites, particles and player
 #interaction are its main responsibility 
@@ -42,6 +43,8 @@ class Enemy(Entity):
         self.damage_player = damage_player
         self.trigger_death_particles = trigger_death_particles
         self.add_exp = add_exp
+        self.drops = [('health', 0.5), ('mana', 0.25)] # 50 percent of heart drop, 25 percent of potion drop
+
 
         # sounds
         self.death_sound = pygame.mixer.Sound('audio/death.wav')
@@ -155,10 +158,21 @@ class Enemy(Entity):
     def check_death(self):
         if self.health <= 0:
             self.kill()
-            # TODO: add death particles for enemy sprites
+            
             self.trigger_death_particles(self.rect.center, self.monster_name)
             self.add_exp(self.exp)
             self.death_sound.play()
+            items = [item[0] for item in self.drops]
+            weights = [item[1] for item in self.drops]
+            item_dropped = random.choices(items, weights)[0]
+            self.heart_group = pygame.sprite.Group()
+
+            Drops(item_dropped, self.rect.center,self.heart_group)
+            # if item_dropped == 'health':
+            #    Drops()
+            #     # create a new health heart entity at the enemy's position
+            # elif item_dropped == 'potion':
+            #     self.support.add_entity('potion', self.rect.center, self.groups)
 
     def hit_reaction(self):
         # enemy will be pushed away in the same facing direction as the player.
@@ -175,3 +189,17 @@ class Enemy(Entity):
     def enemy_update(self, player):
         self.get_status(player)
         self.actions(player)
+
+
+class Drops(Entity):
+    def __init__(self, dropType, pos, groups):
+        super().__init__(groups)
+        self.sprite_type = 'item'
+        if dropType == 'health':
+            self.image = pygame.image.load('graphics/Heart/Heart.png').convert_alpha()
+        if dropType == 'mana':
+            self.image = pygame.image.load('graphics/Mana/ManaPotion.png').convert_alpha()
+        self.rect = self.image.get_rect(center=pos)
+    
+    def update(self):
+        pass

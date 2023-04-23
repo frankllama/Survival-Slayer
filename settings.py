@@ -104,7 +104,7 @@ magic_data = {
 
 # enemy
 monster_data = {
-    'CyclopSKull': {'health': 500, 'exp': 300, 'damage': 1, 'attack_type': 'slash', 'attack_sound': 'audio/attack/slash.wav',
+    'CyclopSkull': {'health': 350, 'exp': 300, 'damage': 1, 'attack_type': 'slash', 'attack_sound': 'audio/attack/slash.wav',
              'speed': 1, 'resistance': 3, 'attack_radius': 80, 'notice_radius': 360},
     'EvilSkull': {'health': 50, 'exp': 100, 'damage': 1, 'attack_type': 'claw', 'attack_sound': 'audio/attack/claw.wav',
              'speed': 3, 'resistance': 2, 'attack_radius': 120, 'notice_radius': 400},
