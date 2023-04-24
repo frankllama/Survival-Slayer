@@ -33,7 +33,7 @@ class level:
             self.visibile_sprites = YSortCameraGroup_2()
 
         self.obstacles_sprites = pygame.sprite.Group()
-        self.obstacles_sprites = pygame.sprite.Group()
+       
 
         # attack sprites
         self.current_attack = None
@@ -91,13 +91,13 @@ class level:
     def createMap(self):
         layouts = {
                 'boundary': import_csv_layout('map/FirstLevel_FloorBlocks.csv'),
-                'grass': import_csv_layout('map/map_Grass.csv'),
+                # 'grass': import_csv_layout('map/map_Grass.csv'),
                 'object': import_csv_layout('map/FirstLevel_Obstacles.csv'), 
                 'entities': import_csv_layout('map/FirstLevelData_Entities.csv')
 
         }
         graphics = {
-                    'grass': import_folder('graphics/grass'),
+                    # 'grass': import_folder('graphics/grass'),
                     'objects': import_folder('graphics/objects')
         }
         # print(graphics)
@@ -116,15 +116,15 @@ class level:
                             Tile((x,y), [self.visibile_sprites, self.obstacles_sprites], 'object', surf)
 
                         if style == 'entities': 
-                            if col == '394': #el:4:10
-                                self.player = Character(
-                                    (x, y),
-                                    [self.visibile_sprites],
-                                    self.obstacles_sprites,
-                                    self.create_attack,
-                                    self.destroy_attack,
-                                    self.create_magic)
-                            else:
+                            # if col == '394': #el:4:10
+                            #     self.player = Character(
+                            #         (x, y),
+                            #         [self.visibile_sprites],
+                            #         self.obstacles_sprites,
+                            #         self.create_attack,
+                            #         self.destroy_attack,
+                            #         self.create_magic)
+                            # else:
                                 if col == '390': 
                                     monster_name = 'OgreSkull'
                                 elif col == '391': 
@@ -142,19 +142,27 @@ class level:
                                     self.damage_player,
                                     self.trigger_death_particles,
                                     self.add_exp)
-
+        self.player = Character(
+            (500,500),
+            [self.visibile_sprites], 
+            self.obstacles_sprites, 
+            self.create_attack, 
+            self.destroy_attack,
+            self.create_magic)
+            #print(row_index)
+            #print(row)
         
 
     def createMap_2(self):
         layouts = {
-                'boundary': import_csv_layout('map2/map_FloorBlocks.csv'),
-                'grass': import_csv_layout('map2/map_Grass.csv'),
-                'object': import_csv_layout('map2/map_Objects.csv'), 
-                'entities': import_csv_layout('map2/map_Entities.csv')
+                'boundary': import_csv_layout('map/FirstLevelData_FloorBlocks.csv'),
+                # 'grass': import_csv_layout('ma2/map_Grass.csv'),
+                'object': import_csv_layout('map/FirstLevelNight._Obstacles.csv'), 
+                'entities': import_csv_layout('map/FirstLevelData_Entities.csv')
         }
         graphics = {
-                    'grass': import_folder('graphics2/grass'),
-                    'objects': import_folder('graphics2/objects')
+                    # 'grass': import_folder('graphics/grass'),
+                    'objects': import_folder('graphics/objectsNight')
         }
         # print(graphics)
         # print(graphics['objects'])
@@ -162,7 +170,7 @@ class level:
         for style, layout in layouts.items():
             for row_index, row in enumerate(layout):
                 for col_index, col in enumerate(row):
-                    if col != '-1':
+                    if col != '-1'and col != '16':
                         x = col_index * TILE_SIZE
                         y = row_index * TILE_SIZE
                         if style == 'boundary':
@@ -172,15 +180,15 @@ class level:
                             Tile((x,y), [self.visibile_sprites, self.obstacles_sprites], 'object', surf)
 
                 if style == 'entities': 
-                    if col == '394': #el:4:10
-                        self.player = Character(
-                            (x, y),
-                            [self.visibile_sprites],
-                            self.obstacles_sprites,
-                            self.create_attack,
-                            self.destroy_attack,
-                            self.create_magic)
-                    else:
+                    # if col == '394': #el:4:10
+                    #     self.player = Character(
+                    #         (x, y),
+                    #         [self.visibile_sprites],
+                    #         self.obstacles_sprites,
+                    #         self.create_attack,
+                    #         self.destroy_attack,
+                    #         self.create_magic)
+                    # else:
                         if col == '390': 
                             monster_name = 'OgreSKull'
                         elif col == '391': 
@@ -321,7 +329,7 @@ class YSortCameraGroup_2(pygame.sprite.Group):
         self.offset = pygame.math.Vector2()
 
         #creating the floor, need to change according to picture we decide to use:
-        self.floor_surface = pygame.image.load('graphics2/tilemap/ground.png').convert()
+        self.floor_surface = pygame.image.load('assets/FirstLevelNight.png').convert()
         # self.map_surface = pygame.Surface((6000, 5000)).convert()
         # self.scaled_map_surface = pygame.transform.scale(self.floor_surface, (2000, 1800))
         #self.floor_surface = pygame.Surface((2000, 1800)).convert()
