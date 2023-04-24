@@ -91,13 +91,11 @@ class level:
     def createMap(self):
         layouts = {
                 'boundary': import_csv_layout('map/FirstLevel_FloorBlocks.csv'),
-                # 'grass': import_csv_layout('map/map_Grass.csv'),
                 'object': import_csv_layout('map/FirstLevel_Obstacles.csv'), 
                 'entities': import_csv_layout('map/FirstLevelData_Entities.csv')
 
         }
         graphics = {
-                    # 'grass': import_folder('graphics/grass'),
                     'objects': import_folder('graphics/objects')
         }
         # print(graphics)
@@ -106,16 +104,16 @@ class level:
         for style, layout in layouts.items():
             for row_index, row in enumerate(layout):
                 for col_index, col in enumerate(row):
-                    if col != '-1' and col != '16':
+                    if col != '-1':
                         x = col_index * TILE_SIZE
                         y = row_index * TILE_SIZE
-                        if style == 'boundary':
+                        if style == 'boundary' and col == '16':
                             Tile((x, y), [ self.obstacles_sprites], 'invisible')
                         if style == 'object':
                             surf = graphics['objects'][int(col)] #uses index of the file
                             Tile((x,y), [self.visibile_sprites, self.obstacles_sprites], 'object', surf)
 
-                        if style == 'entities': 
+                        if style == 'entities' and col != '2': 
                             # if col == '394': #el:4:10
                             #     self.player = Character(
                             #         (x, y),
@@ -155,13 +153,11 @@ class level:
 
     def createMap_2(self):
         layouts = {
-                'boundary': import_csv_layout('map/FirstLevelData_FloorBlocks.csv'),
-                # 'grass': import_csv_layout('ma2/map_Grass.csv'),
-                'object': import_csv_layout('map/FirstLevelNight._Obstacles.csv'), 
+                'boundary': import_csv_layout('map/FirstLevelData_FloorBlocks.csv'),               
+                'object': import_csv_layout('map/FirstLevel_Obstacles.csv'), 
                 'entities': import_csv_layout('map/FirstLevelData_Entities.csv')
         }
-        graphics = {
-                    # 'grass': import_folder('graphics/grass'),
+        graphics = {                   
                     'objects': import_folder('graphics/objectsNight')
         }
         # print(graphics)
@@ -170,16 +166,16 @@ class level:
         for style, layout in layouts.items():
             for row_index, row in enumerate(layout):
                 for col_index, col in enumerate(row):
-                    if col != '-1'and col != '16':
+                    if col != '-1':
                         x = col_index * TILE_SIZE
                         y = row_index * TILE_SIZE
-                        if style == 'boundary':
+                        if style == 'boundary' and col == '16':
                             Tile((x, y), [ self.obstacles_sprites], 'invisible')
                         if style == 'object':
                             surf = graphics['objects'][int(col)] #uses index of the file
                             Tile((x,y), [self.visibile_sprites, self.obstacles_sprites], 'object', surf)
 
-                if style == 'entities': 
+                        if style == 'entities' and col != '2': 
                     # if col == '394': #el:4:10
                     #     self.player = Character(
                     #         (x, y),
@@ -189,23 +185,23 @@ class level:
                     #         self.destroy_attack,
                     #         self.create_magic)
                     # else:
-                        if col == '390': 
-                            monster_name = 'OgreSKull'
-                        elif col == '391': 
-                            monster_name = 'CyclopSkull'
-                        elif col == '392': 
-                            monster_name = 'EvilSkull'
-                        else: 
-                            monster_name = 'OxSkull' #this is "working"/running, but need to figure out which numbers insead of 390-392 IF they don't change later
+                            if col == '390': 
+                                monster_name = 'OgreSKull'
+                            elif col == '391': 
+                                monster_name = 'CyclopSkull'
+                            elif col == '392': 
+                                monster_name = 'EvilSkull'
+                            elif col == '393':
+                                monster_name = 'OxSkull' #this is "working"/running, but need to figure out which numbers insead of 390-392 IF they don't change later
 
-                        Enemy(
-                            monster_name, 
-                            (x,y), 
-                            [self.visibile_sprites, self.attackable_sprites], 
-                            self.obstacles_sprites,
-                            self.damage_player,
-                            self.trigger_death_particles,
-                            self.add_exp)
+                            Enemy(
+                                monster_name, 
+                                (x,y), 
+                                [self.visibile_sprites, self.attackable_sprites], 
+                                self.obstacles_sprites,
+                                self.damage_player,
+                                self.trigger_death_particles,
+                                self.add_exp)
 
         self.player = Character(
             (1200,1500),
