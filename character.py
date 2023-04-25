@@ -11,18 +11,14 @@ class Character(Entity):
         # for scaling sprite
         self.image = pygame.transform.scale(pygame.image.load(
             'assets/blue_ninja.png').convert_alpha(), (64, 64))
-        #self.image = pygame.image.load('assets/singlePlayerAsset.png').convert_alpha()
         self.rect = self.image.get_rect(topleft = pos)
         self.hitbox = self.rect.inflate(-6, HITBOX_OFFSET['player'])
         
         # graphics setup
         self.import_character_assets()
         self.status = 'down'
-        #self.frame_index = 0
-        #self.animation_speed = 0.15
 
         # movement attributes
-        #self.direction = pygame.math.Vector2()
         self.attacking = False
         self.attack_cooldown = 400
         self.attack_time = None
@@ -163,12 +159,8 @@ class Character(Entity):
         spell_damage = magic_data[self.magic]['strength']
         return base_damage + spell_damage
     
-    def energy_recovery(self):
-        self.energy +=1
-        # if self.energy < self.stats['energy']:
-        #     self.energy += 0.01 * self.stats['magic']
-        # else:
-        #     self.energy = self.stats['energy']
+    # def energy_recovery(self):
+    #     self.energy +=1
 
     def cooldowns(self):
         current_time = pygame.time.get_ticks()

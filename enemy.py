@@ -70,7 +70,7 @@ class Enemy(Entity):
                 self.vulnerable = True
 
         # if self.attack_cooldown >= 0:
-        #     self.attack_cooldown -= .1
+        #     self.attack_cooldown -= .01
         # if self.attack_cooldown <= 0:
         #     self.can_attack = True
         #     self.attack_cooldown  =5
