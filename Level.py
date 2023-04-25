@@ -1,6 +1,6 @@
 import pygame 
 from settings import *
-from Tile import Tile
+from tile import Tile
 from character import Character
 from debug import debug
 from support import *
@@ -15,7 +15,7 @@ from upgrade import Upgrade
 
 
 
-class level: 
+class Level: 
     def __init__(self):
         self.reset() # to set all members to their initial value per map.
 

@@ -3,7 +3,7 @@ import sys
 import random
 from character import *
 from settings import *
-from Level import level
+from level import Level
 from time import sleep
 
 
@@ -16,7 +16,7 @@ class Game:
         pygame.display.set_caption('Survival Slayer')
         self.clock = pygame.time.Clock()
 
-        self.level = level()
+        self.level = Level()
 
         self.map_list = [MAP_1, MAP_2]
         # create an event to randomly change the map on the event queue, timer based.
