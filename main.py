@@ -55,6 +55,8 @@ class Game:
                     self.level.player.exp = current_score
                     self.level.player.health = current_health
                     self.level.player.energy = current_energy
+                    # refill 1 magic
+                    self.level.player.energy_recovery()
 
            # setting up the background and updating the screen
             self.screen.fill(WATER_COLOR)

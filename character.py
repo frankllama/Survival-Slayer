@@ -164,7 +164,11 @@ class Character(Entity):
         return base_damage + spell_damage
     
     def energy_recovery(self):
-        self.energy +=1
+        if self.energy < self.stats['energy']:
+            self.energy +=1
+        else:
+            self.energy = self.stats['energy']
+
         # if self.energy < self.stats['energy']:
         #     self.energy += 0.01 * self.stats['magic']
         # else:
