@@ -118,7 +118,11 @@ class Enemy(Entity):
     def actions(self, player):
         if self.status == 'attack':
             self.attack_time = pygame.time.get_ticks()
-            self.damage_player(self.attack_damage, self.attack_type)
+            # prevent enemy from reducing player health into negative value.
+            if player.health > 0:
+                self.damage_player(self.attack_damage, self.attack_type)
+            else:
+                self.damage_player(0, self.attack_type)
             self.attack_sound.play()
         elif self.status == 'move':
             print("move")
