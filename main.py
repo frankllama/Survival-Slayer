@@ -29,9 +29,14 @@ class Game:
         main_sound.set_volume(0.5)
         main_sound.play(loops = -1)
 
+        # game over state
+        self.game_over_state = False
+
 
     def run(self):
         while True:
+            if self.level.player.health <= 0:
+                self.game_over_state = True
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -58,6 +63,18 @@ class Game:
                     # refill 1 magic
                     self.level.player.energy_recovery()
 
+            if self.game_over_state:
+                player_choice = self.game_over()
+                if player_choice == 1:
+                    self.game_over_state = False
+                    self.level.reset()
+                elif player_choice == 2:
+                    pygame.quit()
+                    sys.exit()
+                else:
+                    pass
+
+
            # setting up the background and updating the screen
             self.screen.fill(WATER_COLOR)
             self.level.run()
@@ -75,6 +92,52 @@ class Game:
             self.screen.blit(fade, (0,0))
             pygame.display.update()
             pygame.time.delay(1)
+
+
+    def game_over(self):
+        # Render text to display
+        game_over_font = pygame.font.Font('graphics/font/joystix.ttf', 72)
+        game_over_text = pygame.font.Font.render(game_over_font, "Game Over", True, (200, 200, 200))
+
+        play_again_font = pygame.font.Font('graphics/font/joystix.ttf', 48)
+        play_again_text = pygame.font.Font.render(play_again_font, "(1) Play Again?", True, (200, 200, 200))
+
+        quit_game_font = pygame.font.Font('graphics/font/joystix.ttf', 48)
+        quit_game_text = pygame.font.Font.render(quit_game_font, "(2) Quit", True, (200, 200, 200))
+
+        # draw to screen
+        #game_over_surface = pygame.Surface((WIDTH, HEIGHT))
+        #game_over_surface.fill((0, 0, 0))
+        #game_over_surface.blit(game_over_text, )
+        self.screen.fill((0, 0, 0))
+        self.screen.blit(game_over_text, (400, 200))
+        self.screen.blit(play_again_text, (300, 400))
+        self.screen.blit(quit_game_text, (300, 500))
+
+        pygame.display.update()
+
+        for sprite in self.level.attackable_sprites:
+            sprite.kill()
+
+        #sleep(5)
+        #pygame.quit()
+        #sys.exit()
+        game_running = True
+        while game_running:
+            for event in pygame.event.get():
+                #wait = pygame.event.wait()
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_1:
+                        game_running = False
+                        return 1
+                    elif event.key == pygame.K_2:
+                        game_running = False
+                        return 2
+                    else:
+                        pass
 
 
 if __name__ == '__main__':
