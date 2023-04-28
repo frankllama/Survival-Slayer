@@ -161,7 +161,7 @@ class Game:
         intro = True
 
         play_button = Button(540, 400, 150, 74, (200,200,200), (0,0,0), 'Play', 48)
-        hover = Button(540, 464, 150, 10, (0, 0, 0), (200, 200, 200), '', 0)
+        #hover = Button(540, 464, 150, 10, (0, 0, 0), (200, 200, 200), '', 0)
 
         while intro:
             for event in pygame.event.get():
@@ -169,11 +169,11 @@ class Game:
                     intro = False
                     pygame.quit()
                     sys.exit()
-                if event.type == pygame.MOUSEMOTION:
-                    if play_button.rect.collidepoint(pygame.mouse.get_pos()):
-                        self.screen.blit(hover.image, hover.rect)
-                        pygame.display.update()
-                        sleep(0.098)
+                #if event.type == pygame.MOUSEMOTION:
+                    #if play_button.rect.collidepoint(pygame.mouse.get_pos()):
+                        #self.screen.blit(hover.image, hover.rect)
+                        #pygame.display.update()
+                        #sleep(0.098)
 
             mouse_pos = pygame.mouse.get_pos()
             mouse_pressed = pygame.mouse.get_pressed()
