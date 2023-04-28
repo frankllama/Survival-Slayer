@@ -5,6 +5,7 @@ from character import *
 from settings import *
 from level import Level
 from time import sleep
+from button import Button
 
 
 
@@ -149,6 +150,36 @@ class Game:
                         pass
 
 
+    def intro_screen(self):
+        # Render text to display
+        intro_font = pygame.font.Font('graphics/font/joystix.ttf', 72)
+        intro_text = pygame.font.Font.render(intro_font, "Survival Slayer", True, (200, 200, 200))
+
+        intro = True
+
+        play_button = Button(540, 400, 150, 74, (200,200,200), (0,0,0), 'Play', 48)
+
+        while intro:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    intro = False
+                    pygame.quit()
+                    sys.exit()
+
+            mouse_pos = pygame.mouse.get_pos()
+            mouse_pressed = pygame.mouse.get_pressed()
+
+            if play_button.is_pressed(mouse_pos, mouse_pressed):
+                intro = False
+
+            self.screen.fill((0, 0, 0))
+            self.screen.blit(intro_text, (160, 150))
+            self.screen.blit(play_button.image, play_button.rect)
+            #self.clock.tick(FPS)
+            pygame.display.update()
+
+
 if __name__ == '__main__':
     game = Game()
+    game.intro_screen()
     game.run()
