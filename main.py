@@ -53,6 +53,10 @@ class Game:
                     current_score = self.level.player.exp
                     current_health = self.level.player.health
                     current_energy = self.level.player.energy
+                    current_weapon_index = self.level.player.weapon_index
+                    current_weapon = list(weapon_data.keys())[current_weapon_index]
+                    current_magic_index = self.level.player.magic_index
+                    current_magic = list(magic_data.keys())[current_magic_index]
 
                     self.level.reset(current_map)
 
@@ -60,6 +64,11 @@ class Game:
                     self.level.player.exp = current_score
                     self.level.player.health = current_health
                     self.level.player.energy = current_energy
+                    self.level.player.weapon_index = current_weapon_index
+                    self.level.player.weapon = current_weapon
+                    self.level.player.magic_index = current_magic_index
+                    self.level.player.magic = current_magic
+
                     # refill 1 magic
                     self.level.player.energy_recovery()
 
