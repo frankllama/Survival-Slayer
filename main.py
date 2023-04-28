@@ -25,7 +25,7 @@ class Game:
         # create an event to randomly change the map on the event queue, timer based.
         self.time_interval = 10000 # 5,000 milliseconds == 5 seconds
         self.timer_event = pygame.USEREVENT+1
-        pygame.time.set_timer(self.timer_event, self.time_interval)
+        #pygame.time.set_timer(self.timer_event, self.time_interval)
         
         # sound
         main_sound = pygame.mixer.Sound('audio/main.ogg')
@@ -37,6 +37,8 @@ class Game:
 
 
     def run(self):
+        # start map change timer here.
+        pygame.time.set_timer(self.timer_event, self.time_interval)
         while True:
             if self.level.player.health <= 0:
                 self.game_over_state = True
@@ -119,9 +121,6 @@ class Game:
         quit_game_text = pygame.font.Font.render(quit_game_font, "(2) Quit", True, (200, 200, 200))
 
         # draw to screen
-        #game_over_surface = pygame.Surface((WIDTH, HEIGHT))
-        #game_over_surface.fill((0, 0, 0))
-        #game_over_surface.blit(game_over_text, )
         self.screen.fill((0, 0, 0))
         self.screen.blit(game_over_text, (400, 200))
         self.screen.blit(play_again_text, (300, 400))
@@ -132,9 +131,6 @@ class Game:
         for sprite in self.level.attackable_sprites:
             sprite.kill()
 
-        #sleep(5)
-        #pygame.quit()
-        #sys.exit()
         game_running = True
         while game_running:
             for event in pygame.event.get():
@@ -161,7 +157,6 @@ class Game:
         intro = True
 
         play_button = Button(540, 400, 150, 74, (200,200,200), (0,0,0), 'Play', 48)
-        #hover = Button(540, 464, 150, 10, (0, 0, 0), (200, 200, 200), '', 0)
 
         while intro:
             for event in pygame.event.get():
@@ -169,11 +164,6 @@ class Game:
                     intro = False
                     pygame.quit()
                     sys.exit()
-                #if event.type == pygame.MOUSEMOTION:
-                    #if play_button.rect.collidepoint(pygame.mouse.get_pos()):
-                        #self.screen.blit(hover.image, hover.rect)
-                        #pygame.display.update()
-                        #sleep(0.098)
 
             mouse_pos = pygame.mouse.get_pos()
             mouse_pressed = pygame.mouse.get_pressed()
