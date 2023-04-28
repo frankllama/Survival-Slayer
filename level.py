@@ -141,7 +141,7 @@ class Level:
                                     self.trigger_death_particles,
                                     self.add_exp)
         self.player = Character(
-            (500,500),
+            (600,760),
             [self.visibile_sprites], 
             self.obstacles_sprites, 
             self.create_attack, 
