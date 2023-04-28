@@ -81,9 +81,9 @@ class Level:
 
         if style == 'flame':
             self.magic_player.flame(self.player,cost,[self.visibile_sprites,self.attack_sprites])
-        print(style)
-        print(strength)
-        print(cost)
+        #print(style)
+        #print(strength)
+        #print(cost)
 
     def add_exp(self,amount):
         self.player.exp += amount

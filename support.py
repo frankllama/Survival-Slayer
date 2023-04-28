@@ -21,7 +21,7 @@ def import_folder(path):
                                      #so need to include _,__, to disregard the first two output to get to the png files
         for image in image_files:
             full_path = path + '/' + image
-            print(full_path)
+            #print(full_path)
             image_surf = pygame.image.load(full_path).convert_alpha()
             surface_list.append(image_surf)
     return surface_list    

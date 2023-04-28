@@ -107,10 +107,10 @@ class Enemy(Entity):
         if distance <= self.attack_radius and self.can_attack:
             if self.status != 'attack':
                 self.frame_index = 0
-            print('attack')
+            #print('attack')
             self.status = 'attack'
         elif distance <= self.notice_radius:
-            print('move')
+            #print('move')
             self.status = 'move'
         else:
             self.status = 'idle'
@@ -125,7 +125,7 @@ class Enemy(Entity):
                 self.damage_player(0, self.attack_type)
             self.attack_sound.play()
         elif self.status == 'move':
-            print("move")
+            #print("move")
             self.direction = self.get_player_distance_direction(player)[1]
         else:
             self.direction = pygame.math.Vector2()
