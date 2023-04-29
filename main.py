@@ -18,9 +18,8 @@ class Game:
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption('Survival Slayer')
         self.clock = pygame.time.Clock()
-
-        self.level = Level()
-
+        self.time_of_the_day = 0 # 0 for day 1 for night
+        
         self.map_list = [MAP_1, MAP_2]
         # create an event to randomly change the map on the event queue, timer based.
         self.time_interval = 10000 # 5,000 milliseconds == 5 seconds
@@ -28,9 +27,21 @@ class Game:
         #pygame.time.set_timer(self.timer_event, self.time_interval)
         
         # sound
-        main_sound = pygame.mixer.Sound('audio/main.ogg')
-        main_sound.set_volume(0.5)
-        main_sound.play(loops = -1)
+        self.current_music = pygame.mixer.Sound('audio/dayTime.mp3')
+        self.current_music.set_volume(0.5)
+        
+        
+        self.game_over_sound = pygame.mixer.Sound('audio/gameover.wav')
+        self.game_over_sound.set_volume(0.5)
+        self.time_of_the_day = 0 # 0 for day 1 for night
+        self.evil_laugh = pygame.mixer.Sound('audio/evil.mp3')
+        self.evil_laugh.set_volume(0.5)
+        self.day_music = pygame.mixer.Sound('audio/dayTime.mp3')
+        self.day_music.set_volume(0.5)
+        self.night_music = pygame.mixer.Sound('audio/nightTime.mp3')
+        self.night_music.set_volume(0.5)
+        
+        self.level = Level(self)
 
         # game over state
         self.game_over_state = False
@@ -83,6 +94,7 @@ class Game:
                     self.game_over_state = False
                     pygame.time.set_timer(self.timer_event, self.time_interval)
                     self.level.reset()
+                  
                 elif player_choice == 2:
                     pygame.quit()
                     sys.exit()
@@ -108,9 +120,24 @@ class Game:
             pygame.display.update()
             pygame.time.delay(1)
 
+    def change_music(self, time_of_day):
+        if self.time_of_the_day != time_of_day:
+            self.current_music.stop()
+            if time_of_day == 0: 
+                self.current_music = self.day_music
+                self.current_music.play(loops = -1)
+            if time_of_day == 1:
+                self.current_music = self.night_music
+                self.current_music.play(loops= -1)
+       
+        
 
     def game_over(self):
         # Render text to display
+        self.current_music.stop()
+        self.game_over_sound.play()
+        self.evil_laugh.play()
+
         game_over_font = pygame.font.Font('graphics/font/joystix.ttf', 72)
         game_over_text = pygame.font.Font.render(game_over_font, "Game Over", True, (200, 200, 200))
 

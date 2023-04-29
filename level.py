@@ -16,18 +16,26 @@ from upgrade import Upgrade
 
 
 class Level: 
-    def __init__(self):
-        self.reset() # to set all members to their initial value per map.
+    def __init__(self, game):
+        self.game = game
+        print(type(self.game))
 
+        self.reset() # to set all members to their initial value per map.
+        
 
     def reset(self, current_map=MAP_1):
+        
+       
         #get surface    
         self.display_surface = pygame.display.get_surface()
         self.game_paused = False
-
+    
         # sprite group set up 
         # Create camera for the current map.
         if current_map == MAP_1:
+            self.game.current_music.stop()
+            self.game.current_music = self.game.day_music
+            self.game.current_music.play(loops = -1)
             self.visibile_sprites = YSortCameraGroup()
         else:
             self.visibile_sprites = YSortCameraGroup_2()
@@ -43,6 +51,7 @@ class Level:
         #sprite setup
         # Create the current map to use.
         if current_map == MAP_1:
+            
             self.createMap()    
         else:
             self.createMap_2()
@@ -89,6 +98,10 @@ class Level:
         self.player.exp += amount
 
     def createMap(self):
+        
+        
+        self.game.change_music(0) # 0 for day 1 for night
+
         layouts = {
                 'boundary': import_csv_layout('map/FirstLevel_FloorBlocks.csv'),
                 'object': import_csv_layout('map/FirstLevel_Obstacles.csv'), 
@@ -151,7 +164,9 @@ class Level:
             #print(row)
         
 
-    def createMap_2(self):
+    def createMap_2(self, ):
+        self.game.time_of_the_day == 1
+        self.game.change_music(1) # 0 for day 1 for night
         layouts = {
                 'boundary': import_csv_layout('map/FirstLevelData_FloorBlocks.csv'),               
                 'object': import_csv_layout('map/FirstLevel_Obstacles.csv'), 
@@ -247,13 +262,14 @@ class Level:
 
 class YSortCameraGroup(pygame.sprite.Group):
     def __init__(self):
+
         # general setup
         super().__init__()
         self.display_surface = pygame.display.get_surface()
         self.half_width = self.display_surface.get_size()[0] // 2
         self.half_height = self.display_surface.get_size()[1] // 2
         self.offset = pygame.math.Vector2()
-
+ 
         ##--------------------------    
         # self.scale = 1.0  # default scale
         # self.min_scale = 0.5  # minimum scale allowed
@@ -318,6 +334,7 @@ class YSortCameraGroup(pygame.sprite.Group):
 class YSortCameraGroup_2(pygame.sprite.Group):
     def __init__(self):
         # general setup
+
         super().__init__()
         self.display_surface = pygame.display.get_surface()
         self.half_width = self.display_surface.get_size()[0] // 2
