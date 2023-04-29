@@ -183,7 +183,8 @@ class Game:
 
         intro = True
 
-        play_button = Button(540, 400, 150, 74, (200,200,200), (0,0,0), 'Play', 48)
+        play_button = Button(540, 400, 400, 74, (200,200,200), (0,0,0), '(1) Play', 48)
+        quit_button = Button(540, 500, 400, 74, (200,200,200), (0,0,0), '(2) quit', 48)
 
         while intro:
             for event in pygame.event.get():
@@ -192,17 +193,32 @@ class Game:
                     pygame.quit()
                     sys.exit()
 
-            mouse_pos = pygame.mouse.get_pos()
-            mouse_pressed = pygame.mouse.get_pressed()
 
-            if play_button.is_pressed(mouse_pos, mouse_pressed):
-                intro = False
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_2:
+                        pygame.quit()
+                        sys.exit()
+                    elif event.key == pygame.K_1:  # key press event for number 1
+                        intro = False
+                        break
 
-            self.screen.fill((0, 0, 0))
-            self.screen.blit(intro_text, (160, 150))
-            self.screen.blit(play_button.image, play_button.rect)
-            #self.clock.tick(FPS)
-            pygame.display.update()
+
+                mouse_pos = pygame.mouse.get_pos()
+                mouse_pressed = pygame.mouse.get_pressed()
+
+                if play_button.is_pressed(mouse_pos, mouse_pressed) :
+                    intro = False
+                if quit_button.is_pressed(mouse_pos, mouse_pressed) :
+                    intro = False
+                    pygame.quit()
+                    sys.exit()
+
+                self.screen.fill((0, 0, 0))
+                self.screen.blit(intro_text, (160, 150))
+                self.screen.blit(play_button.image, play_button.rect)
+                self.screen.blit(quit_button.image, quit_button.rect)
+                #self.clock.tick(FPS)
+                pygame.display.update()
 
 
 if __name__ == '__main__':
