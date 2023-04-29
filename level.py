@@ -18,7 +18,7 @@ from upgrade import Upgrade
 class Level: 
     def __init__(self, game):
         self.game = game
-        print(type(self.game))
+        #print(type(self.game))
 
         self.reset() # to set all members to their initial value per map.
         
@@ -164,8 +164,8 @@ class Level:
             #print(row)
         
 
-    def createMap_2(self, ):
-        self.game.time_of_the_day == 1
+    def createMap_2(self):
+        #self.game.time_of_the_day == 1
         self.game.change_music(1) # 0 for day 1 for night
         layouts = {
                 'boundary': import_csv_layout('map/FirstLevelData_FloorBlocks.csv'),               

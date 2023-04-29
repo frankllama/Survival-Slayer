@@ -183,8 +183,8 @@ class Game:
 
         intro = True
 
-        play_button = Button(540, 400, 400, 74, (200,200,200), (0,0,0), '(1) Play', 48)
-        quit_button = Button(540, 500, 400, 74, (200,200,200), (0,0,0), '(2) quit', 48)
+        play_button = Button(400, 400, 400, 74, (200,200,200), (0,0,0), '(1) Play', 48)
+        quit_button = Button(400, 500, 400, 74, (200,200,200), (0,0,0), '(2) quit', 48)
 
         while intro:
             for event in pygame.event.get():
