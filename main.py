@@ -2,6 +2,7 @@ import pygame
 import sys
 import random
 from pygame.draw import rect
+from pygame.time import delay
 from character import *
 from settings import *
 from level import Level
@@ -50,6 +51,7 @@ class Game:
         while True:
             if self.level.player.health <= 0:
                 self.game_over_state = True
+                pygame.time.delay(300)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
