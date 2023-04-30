@@ -1,9 +1,13 @@
 import pygame
 from settings import *
 
-#The UI class manages the graphical user interface elements that aid the player during the game, such as health and 
-# mana displays, as well as weapon and magic indicators.
+
 class UI:
+    """The UI class manages the graphical user interface elements that aid the 
+    player during the game, such as health and mana displays, as well as weapon 
+    and magic indicators.
+    """
+
     def __init__(self):
         # general
         self.display_surface = pygame.display.get_surface()

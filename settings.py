@@ -72,7 +72,6 @@ MANA_GRAPHIC = 'graphics/Mana/ManaPotion.png'
 MANA_WIDTH = 14
 MANA_SPACING = 10
 
-
 # general colors
 WATER_COLOR = '#71ddee'
 UI_BG_COLOR = '#222222'

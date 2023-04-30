@@ -1,7 +1,6 @@
 import pygame
 import sys
 import random
-
 from pygame.draw import rect
 from character import *
 from settings import *
@@ -10,8 +9,8 @@ from time import sleep
 from button import Button
 
 
-
 class Game:
+
     def __init__(self):
         # General setup
         pygame.init()
@@ -30,7 +29,6 @@ class Game:
         self.current_music = pygame.mixer.Sound('audio/dayTime.mp3')
         self.current_music.set_volume(0.5)
         
-        
         self.game_over_sound = pygame.mixer.Sound('audio/gameover.wav')
         self.game_over_sound.set_volume(0.5)
         self.time_of_the_day = 0 # 0 for day 1 for night
@@ -45,7 +43,6 @@ class Game:
 
         # game over state
         self.game_over_state = False
-
 
     def run(self):
         # start map change timer here.
@@ -101,14 +98,12 @@ class Game:
                 else:
                     pass
 
-
            # setting up the background and updating the screen
             self.screen.fill(WATER_COLOR)
             self.level.run()
             # player.draw(self.screen)
             pygame.display.update()
             self.clock.tick(FPS)
-
 
     def _fade(self, width, height):
         fade = pygame.Surface((width, height))
@@ -130,8 +125,6 @@ class Game:
                 self.current_music = self.night_music
                 self.current_music.play(loops= -1)
        
-        
-
     def game_over(self):
         # Render text to display
         self.current_music.stop()
@@ -175,7 +168,6 @@ class Game:
                     else:
                         pass
 
-
     def intro_screen(self):
         # Render text to display
         intro_font = pygame.font.Font('graphics/font/joystix.ttf', 72)
@@ -192,8 +184,6 @@ class Game:
                     intro = False
                     pygame.quit()
                     sys.exit()
-
-
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_2:
                         pygame.quit()
@@ -201,7 +191,6 @@ class Game:
                     elif event.key == pygame.K_1:  # key press event for number 1
                         intro = False
                         break
-
 
                 mouse_pos = pygame.mouse.get_pos()
                 mouse_pressed = pygame.mouse.get_pressed()

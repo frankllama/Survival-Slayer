@@ -3,9 +3,12 @@ from settings import *
 from support import import_folder
 from entity import Entity
 
-#the character class initializes the player's attribute, mainly stats. Control
-# implementation is done here for the player as well as the player sprites
+
 class Character(Entity):
+    """The character class initializes the player's attribute, mainly stats. 
+    Control implementation is done here for the player as well as the player sprites
+    """
+
     def __init__(self, pos, groups, obstacle_sprites, create_attack, destroy_attack, create_magic):
         super().__init__(groups)
         # for scaling sprite
@@ -225,6 +228,3 @@ class Character(Entity):
         self.animate()
         self.move(self.speed)
         #self.energy_recovery()
-
-
-    

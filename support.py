@@ -1,9 +1,12 @@
+"""
+This file is responsible for the functions that imports files that implements 
+the graphics and location of map assets.
+"""
+
 from csv import reader
 from os import walk 
 import pygame
 
-#This file is responsible for the functions that imports files that implements the graphics and location 
-# of map assets
 
 def import_csv_layout(path):
     terrain_map = []
@@ -16,7 +19,7 @@ def import_csv_layout(path):
 def import_folder(path):
     surface_list = []
 
-    for _,__,image_files in walk(path): #the output for print(import_csv_layout('graphics/grass')) is 
+    for _,_,image_files in walk(path): #the output for print(import_csv_layout('graphics/grass')) is 
                                      # ('graphics/grass', [], ['grass_3.png', 'grass_2.png', 'grass_1.png'])
                                      #so need to include _,__, to disregard the first two output to get to the png files
         for image in image_files:

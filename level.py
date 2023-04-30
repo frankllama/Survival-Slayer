@@ -14,18 +14,14 @@ from magic import MagicPlayer
 from upgrade import Upgrade
 
 
-
 class Level: 
+
     def __init__(self, game):
         self.game = game
         #print(type(self.game))
-
         self.reset() # to set all members to their initial value per map.
         
-
     def reset(self, current_map=MAP_1):
-        
-       
         #get surface    
         self.display_surface = pygame.display.get_surface()
         self.game_paused = False
@@ -42,7 +38,6 @@ class Level:
 
         self.obstacles_sprites = pygame.sprite.Group()
        
-
         # attack sprites
         self.current_attack = None
         self.attack_sprites = pygame.sprite.Group()
@@ -51,7 +46,6 @@ class Level:
         #sprite setup
         # Create the current map to use.
         if current_map == MAP_1:
-            
             self.createMap()    
         else:
             self.createMap_2()
@@ -62,7 +56,6 @@ class Level:
         # particles
         self.animation_player = AnimationPlayer()
         self.magic_player = MagicPlayer(self.animation_player)
-
 
     def run(self):
         self.visibile_sprites.custom_draw(self.player)
@@ -98,15 +91,12 @@ class Level:
         self.player.exp += amount
 
     def createMap(self):
-        
-        
         self.game.change_music(0) # 0 for day 1 for night
 
         layouts = {
                 'boundary': import_csv_layout('map/FirstLevel_FloorBlocks.csv'),
                 'object': import_csv_layout('map/FirstLevel_Obstacles.csv'), 
                 'entities': import_csv_layout('map/FirstLevelData_Entities.csv')
-
         }
         graphics = {
                     'objects': import_folder('graphics/objects')
@@ -153,6 +143,7 @@ class Level:
                                     self.damage_player,
                                     self.trigger_death_particles,
                                     self.add_exp)
+
         self.player = Character(
             (600,760),
             [self.visibile_sprites], 
@@ -162,7 +153,6 @@ class Level:
             self.create_magic)
             #print(row_index)
             #print(row)
-        
 
     def createMap_2(self):
         #self.game.time_of_the_day == 1
@@ -228,10 +218,8 @@ class Level:
             #print(row_index)
             #print(row)
 
-
     def toggle_menu(self):
         self.game_paused = not self.game_paused 
-
 
     def player_attack_logic(self):
         if self.attack_sprites:
@@ -245,7 +233,6 @@ class Level:
                         else:
                             target_sprite.get_damage(self.player, attack_sprite.sprite_type)
 
-
     def damage_player(self, amount, attack_type):
         if self.player.vulnerable:
             self.player.health -= amount
@@ -254,15 +241,13 @@ class Level:
             self.animation_player.create_particles(attack_type, self.player.rect.center, [self.visibile_sprites])
             # TODO: spawn particles
 
-
     def trigger_death_particles(self, pos, particle_type):
         self.animation_player.create_particles(particle_type, pos, self.visibile_sprites)
 
 
-
 class YSortCameraGroup(pygame.sprite.Group):
-    def __init__(self):
 
+    def __init__(self):
         # general setup
         super().__init__()
         self.display_surface = pygame.display.get_surface()
@@ -287,7 +272,6 @@ class YSortCameraGroup(pygame.sprite.Group):
         #self.floor_surface = pygame.Surface((2000, 1800)).convert()
 
         self.floor_rect = self.floor_surface.get_rect(topleft = (0,0)) #surf = surface
-
 
     def custom_draw(self,player):
         #getting the offset
@@ -321,7 +305,6 @@ class YSortCameraGroup(pygame.sprite.Group):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image,offset_pos)
 
-
     def enemy_update(self, player):
         enemy_sprites = [sprite for sprite in self.sprites() 
                          if hasattr(sprite,'sprite_type') and
@@ -330,11 +313,10 @@ class YSortCameraGroup(pygame.sprite.Group):
             enemy.enemy_update(player)
 
 
-
 class YSortCameraGroup_2(pygame.sprite.Group):
+
     def __init__(self):
         # general setup
-
         super().__init__()
         self.display_surface = pygame.display.get_surface()
         self.half_width = self.display_surface.get_size()[0] // 2
@@ -347,7 +329,6 @@ class YSortCameraGroup_2(pygame.sprite.Group):
         # self.scaled_map_surface = pygame.transform.scale(self.floor_surface, (2000, 1800))
         #self.floor_surface = pygame.Surface((2000, 1800)).convert()
         self.floor_rect = self.floor_surface.get_rect(topleft = (0,0)) #surf = surface
-
 
     def custom_draw(self,player):
         #getting the offset
@@ -363,10 +344,9 @@ class YSortCameraGroup_2(pygame.sprite.Group):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image,offset_pos)
 
-
     def enemy_update(self, player):
         enemy_sprites = [sprite for sprite in self.sprites() 
                          if hasattr(sprite,'sprite_type') and
                                     sprite.sprite_type == 'enemy']
-        for enemy  in enemy_sprites:
+        for enemy in enemy_sprites:
             enemy.enemy_update(player)

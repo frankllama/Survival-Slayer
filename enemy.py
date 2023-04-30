@@ -4,9 +4,12 @@ from entity import Entity
 from support import *
 import random
 
-#The enemy entity is done implemented here. Stats, sprites, particles and player
-#interaction are its main responsibility 
+
 class Enemy(Entity):
+    """The enemy entity is done implemented here. Stats, sprites, particles and 
+    player interaction are its main responsibility.
+    """
+
     def __init__(self, monster_name, pos, groups, obstacle_sprites, damage_player, trigger_death_particles, add_exp):
         # general setup
         super().__init__(groups)
@@ -35,7 +38,6 @@ class Enemy(Entity):
         self.notice_radius = monster_info['notice_radius']
         self.attack_type = monster_info['attack_type']
         
-
         #player intereaction
         self.can_attack = True
         self.attack_time = None
@@ -44,7 +46,6 @@ class Enemy(Entity):
         self.trigger_death_particles = trigger_death_particles
         self.add_exp = add_exp
         self.drops = [('health', 0.5), ('mana', 0.25)] # 50 percent of heart drop, 25 percent of potion drop
-
 
         # sounds
         self.death_sound = pygame.mixer.Sound('audio/death.wav')
@@ -88,12 +89,12 @@ class Enemy(Entity):
         if player_vector == enemy_vector:
             enemy_vector[0] = enemy_vector[0] -1
             distance = (player_vector - enemy_vector).magnitude() #converting a vector into distance
-            direction = (player_vector - enemy_vector).normalize()# convertin a vector into a direction by normalizing  
+            direction = (player_vector - enemy_vector).normalize() #converting a vector into a direction by normalizing  
         else: 
             distance = (player_vector - enemy_vector).magnitude() #converting a vector into distance
             if player_vector == enemy_vector:
                 enemy_vector[0] = enemy_vector[0] -1
-            direction = (player_vector - enemy_vector).normalize()# convertin a vector into a direction by normalizing
+            direction = (player_vector - enemy_vector).normalize() #converting a vector into a direction by normalizing
        
         if distance > 0: 
             direction = (player_vector - enemy_vector).normalize()
@@ -196,6 +197,7 @@ class Enemy(Entity):
 
 
 class Drops(Entity):
+
     def __init__(self, dropType, pos, groups):
         super().__init__(groups)
         self.sprite_type = 'item'

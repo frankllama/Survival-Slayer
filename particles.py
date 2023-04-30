@@ -1,13 +1,16 @@
+"""
+This file contains two classes: AnimationPlayer and ParticleEffects. AnimationPlayer
+initializes a dictionary of particle effects for magic, attacks, monster death, 
+and is also responsible for flipping the particle frames and creating the particles. 
+"""
+
 import pygame
 from support import import_folder
 from random import choice
 
 
-#This file contains two classes: AnimationPlayer and ParticleEffects. AnimationPlayer initializes a dictionary 
-# of particle effects for magic, attacks, and monster death, and is also responsible for flipping the 
-# particle frames and creating the particles. 
-#
 class AnimationPlayer:
+
 	def __init__(self):
 		self.frames = {
 			# magic
@@ -33,7 +36,6 @@ class AnimationPlayer:
             'OxSkull': import_folder('graphics/particles/bone_death'),
 
             # TODO: add leafs death particles later.
-		
 			}
 	
 	def reflect_images(self, frames):
@@ -49,6 +51,7 @@ class AnimationPlayer:
 
 
 class ParticleEffect(pygame.sprite.Sprite):
+
     def __init__(self, pos, animation_frames, groups):
         super().__init__(groups)
         self.sprite_type = 'magic'

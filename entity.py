@@ -1,7 +1,9 @@
 import pygame
 from math import sin
 
+
 class Entity(pygame.sprite.Sprite):
+
     def __init__(self, groups):
         super().__init__(groups)
         self.frame_index = 0

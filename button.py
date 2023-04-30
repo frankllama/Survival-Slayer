@@ -1,6 +1,8 @@
 import pygame
 
+
 class Button:
+
     def __init__(self, x, y, width, height, fg, bg, content, fontsize):
         self.font = pygame.font.Font('graphics/font/joystix.ttf', fontsize)
         self.content = content
@@ -24,7 +26,6 @@ class Button:
         # places text in the center of the button surface
         self.text_rect = self.text.get_rect(center=(self.width/2, self.height/2))
         self.image.blit(self.text, self.text_rect)
-
 
     def is_pressed(self, pos, pressed):
         if self.rect.collidepoint(pos):
