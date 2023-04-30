@@ -19,6 +19,10 @@ class Level:
     def __init__(self, game):
         self.game = game
         #print(type(self.game))
+        # list of player spawn points per map
+        self.player_spawn_map_1 = [(600,760), (2400,2160)]
+        self.player_spawn_map_2 = [(1200,1500), (1000,2100)]
+
         self.reset() # to set all members to their initial value per map.
         
     def reset(self, current_map=MAP_1):
@@ -144,8 +148,9 @@ class Level:
                                     self.trigger_death_particles,
                                     self.add_exp)
 
+        player_spawn = choice(self.player_spawn_map_1) 
         self.player = Character(
-            (600,760),
+            (player_spawn[0],player_spawn[1]),
             [self.visibile_sprites], 
             self.obstacles_sprites, 
             self.create_attack, 
@@ -208,8 +213,9 @@ class Level:
                                 self.trigger_death_particles,
                                 self.add_exp)
 
+        player_spawn = choice(self.player_spawn_map_2) 
         self.player = Character(
-            (1200,1500),
+            (player_spawn[0],player_spawn[1]),
             [self.visibile_sprites], 
             self.obstacles_sprites, 
             self.create_attack, 
