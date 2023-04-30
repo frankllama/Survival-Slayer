@@ -51,7 +51,6 @@ class Game:
         while True:
             if self.level.player.health <= 0:
                 self.game_over_state = True
-                pygame.time.delay(300)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -93,7 +92,6 @@ class Game:
                     self.game_over_state = False
                     pygame.time.set_timer(self.timer_event, self.time_interval)
                     self.level.reset()
-                  
                 elif player_choice == 2:
                     pygame.quit()
                     sys.exit()
@@ -128,35 +126,25 @@ class Game:
                 self.current_music.play(loops= -1)
        
     def game_over(self):
-        # Render text to display
+        # remove all enemies so that they don't continue to attack during screen.
+        for sprite in self.level.attackable_sprites:
+            sprite.kill()
+
+        # Play game over sounds and stop playing current song.
         self.current_music.stop()
         self.game_over_sound.play()
         self.evil_laugh.play()
 
+        # Render text to display
         game_over_font = pygame.font.Font('graphics/font/joystix.ttf', 72)
         game_over_text = pygame.font.Font.render(game_over_font, "Game Over", True, (200, 200, 200))
-
-        play_again_font = pygame.font.Font('graphics/font/joystix.ttf', 48)
-        play_again_text = pygame.font.Font.render(play_again_font, "(1) Play Again?", True, (200, 200, 200))
-
-        quit_game_font = pygame.font.Font('graphics/font/joystix.ttf', 48)
-        quit_game_text = pygame.font.Font.render(quit_game_font, "(2) Quit", True, (200, 200, 200))
-
-        # draw to screen
-        self.screen.fill((0, 0, 0))
-        self.screen.blit(game_over_text, (400, 200))
-        self.screen.blit(play_again_text, (300, 400))
-        self.screen.blit(quit_game_text, (300, 500))
-
-        pygame.display.update()
-
-        for sprite in self.level.attackable_sprites:
-            sprite.kill()
+        
+        play_again_button = Button(390, 400, 600, 74, (200,200,200), (0,0,0), '(1) Play Again?', 48)
+        quit_button = Button(350, 500, 400, 74, (200,200,200), (0,0,0), '(2) Quit', 48)
 
         game_running = True
         while game_running:
             for event in pygame.event.get():
-                #wait = pygame.event.wait()
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
@@ -167,8 +155,23 @@ class Game:
                     elif event.key == pygame.K_2:
                         game_running = False
                         return 2
-                    else:
-                        pass
+
+                mouse_pos = pygame.mouse.get_pos()
+                mouse_pressed = pygame.mouse.get_pressed()
+
+                if play_again_button.is_pressed(mouse_pos, mouse_pressed) :
+                    game_running = False
+                    return 1
+                if quit_button.is_pressed(mouse_pos, mouse_pressed) :
+                    game_running = False
+                    return 2
+
+                # draw to screen
+                self.screen.fill((0, 0, 0))
+                self.screen.blit(game_over_text, (400, 200))
+                self.screen.blit(play_again_button.image, play_again_button.rect)
+                self.screen.blit(quit_button.image, quit_button.rect)
+                pygame.display.update()
 
     def intro_screen(self):
         # Render text to display
