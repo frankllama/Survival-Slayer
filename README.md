@@ -1,5 +1,14 @@
 # Survival-Slayer
 
+## Prerequisites/ Dependencies
+### For Debian/ Ubuntu based distrobutions
+python3, and pip (for pygame) <br />
+For example: <br />
+For python3: sudo apt install python3 <br />
+For pip: sudo apt install python3-pip <br />
+For pygame: python3 -m pip install -U pygame --user <br />
+
+## How to run the game
 To run game, in terminal/ IDE: python3 main.py
 
 ## Controls
