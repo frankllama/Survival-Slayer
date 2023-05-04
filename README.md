@@ -1,7 +1,7 @@
 # Survival-Slayer
 
 ## Prerequisites/ Dependencies
-### For Debian/ Ubuntu based distrobutions
+### For Debian/ Ubuntu based distributions
 python3, and pip (for pygame) <br />
 For example: <br />
 For python3: sudo apt install python3 <br />
